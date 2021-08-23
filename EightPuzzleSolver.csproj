@@ -11,6 +11,7 @@
     <IsPublishable>False</IsPublishable>
     <DebugType>embedded</DebugType>
     <SignAssembly>False</SignAssembly>
+    <AssemblyName>8 Puzzle Solver</AssemblyName>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
