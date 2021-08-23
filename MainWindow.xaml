@@ -1,12 +1,19 @@
-﻿<Window x:Class="EightPuzzleSolver.MainWindow"
+﻿<Window x:Name="GameWindow" x:Class="EightPuzzleSolver.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EightPuzzleSolver"
+		xmlns:models="clr-namespace:EightPuzzleSolver.Models"
         mc:Ignorable="d"
-        Title="8 Puzzle Solver" Height="450" Width="800">
-    <Grid>
-
-    </Grid>
+        Title="8 Puzzle Solver" Height="450" Width="800" WindowStyle="ThreeDBorderWindow" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen">
+	<Window.DataContext>
+		<models:Game x:Name="GameInstance"/>
+	</Window.DataContext>
+	<StackPanel x:Name="GamePanel">
+		<StackPanel x:Name="GameGridRows">
+			<DataGrid ItemsSource="{Binding CurrentGridRows}">
+			</DataGrid>
+		</StackPanel>
+	</StackPanel>
 </Window>
