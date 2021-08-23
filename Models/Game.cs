@@ -11,24 +11,50 @@ namespace EightPuzzleSolver.Models {
 	/// [You have lost] The game itself.
 	/// </summary>
 	sealed class Game {
+		#region Private
 		/// <summary>
 		/// Current state of the grid
 		/// </summary>
-		private readonly byte[,] currentGrid = new byte[,] { { 0, 1, 2 }, { 3, 4, 5 }, { 6, 7, 8 } };
+		private readonly byte[][] currentGrid = new byte[][] { new byte[] { 0, 1, 2 }, new byte[] { 3, 4, 5 }, new byte[] { 6, 7, 8 } };
+		#endregion
+		#region Observables
 		/// <summary>
-		/// Current state of the grid
+		/// Current state of the first column of the grid for displaying at the game window
 		/// </summary>
-		public List<byte> CurrentGridRows {
+		public List<string> CurrentFirstColumn {
 			get {
-				List<byte> result = new();
+				List<string> result = new();
 				for (int i = 0; i < 3; i++) {
-					for (int j = 0; j < 3; j++) {
-						result.Add(currentGrid[i, j]);
-					}
+					result.Add(currentGrid[i][0].ToString());
 				}
 				return result;
 			}
 		}
+		/// <summary>
+		/// Current state of the first column of the grid for displaying at the game window
+		/// </summary>
+		public List<string> CurrentSecondColumn {
+			get {
+				List<string> result = new();
+				for (int i = 0; i < 3; i++) {
+					result.Add(currentGrid[i][1].ToString());
+				}
+				return result;
+			}
+		}
+		/// <summary>
+		/// Current state of the first column of the grid for displaying at the game window
+		/// </summary>
+		public List<string> CurrentThirdColumn {
+			get {
+				List<string> result = new();
+				for (int i = 0; i < 3; i++) {
+					result.Add(currentGrid[i][2].ToString());
+				}
+				return result;
+			}
+		}
+		#endregion
 		/// <summary>
 		/// Creates a game
 		/// </summary>

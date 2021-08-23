@@ -11,9 +11,44 @@
 		<models:Game x:Name="GameInstance"/>
 	</Window.DataContext>
 	<StackPanel x:Name="GamePanel">
-		<StackPanel x:Name="GameGridRows">
-			<DataGrid ItemsSource="{Binding CurrentGridRows}">
-			</DataGrid>
-		</StackPanel>
+		<Grid x:Name="GameGrid">
+			<Grid.RowDefinitions>
+				<RowDefinition/>
+				<RowDefinition/>
+				<RowDefinition/>
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+			<ItemsControl Grid.Column="0" ItemsSource="{Binding CurrentFirstColumn}">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<Button>
+							<TextBlock Text="{Binding}"></TextBlock>
+						</Button>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+			<ItemsControl Grid.Column="1" ItemsSource="{Binding CurrentSecondColumn}">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<Button>
+							<TextBlock Text="{Binding}"></TextBlock>
+						</Button>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+			<ItemsControl Grid.Column="2" ItemsSource="{Binding CurrentThirdColumn}">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<Button>
+							<TextBlock Text="{Binding}"></TextBlock>
+						</Button>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</Grid>
 	</StackPanel>
 </Window>
