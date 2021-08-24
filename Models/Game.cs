@@ -29,36 +29,14 @@ namespace EightPuzzleSolver.Models {
 		/// <summary>
 		/// Current state of the first column of the grid for displaying at the game window
 		/// </summary>
-		public List<string> CurrentFirstColumn {
+		public List<string> CurrentGrid {
 			get {
 				List<string> result = new();
-				result.Add(currentGrid[0][0].ToString());
-				result.Add(currentGrid[1][0].ToString());
-				result.Add(currentGrid[2][0].ToString());
-				return result;
-			}
-		}
-		/// <summary>
-		/// Current state of the first column of the grid for displaying at the game window
-		/// </summary>
-		public List<string> CurrentSecondColumn {
-			get {
-				List<string> result = new();
-				result.Add(currentGrid[0][1].ToString());
-				result.Add(currentGrid[1][1].ToString());
-				result.Add(currentGrid[2][1].ToString());
-				return result;
-			}
-		}
-		/// <summary>
-		/// Current state of the first column of the grid for displaying at the game window
-		/// </summary>
-		public List<string> CurrentThirdColumn {
-			get {
-				List<string> result = new();
-				result.Add(currentGrid[0][2].ToString());
-				result.Add(currentGrid[1][2].ToString());
-				result.Add(currentGrid[2][2].ToString());
+				for (int i = 0; i < 3; i++) {
+					for (int j = 0; j < 3; j++) {
+						result.Add(currentGrid[i][j].ToString());
+					}
+				}
 				return result;
 			}
 		}

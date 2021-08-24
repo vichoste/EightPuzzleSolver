@@ -7,42 +7,43 @@
 		xmlns:models="clr-namespace:EightPuzzleSolver.Models"
 		xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
+		Loaded="GameWindow_Loaded"
         Title="8-Puzzle Solver" Height="512" Width="512" WindowStyle="SingleBorderWindow" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" SizeToContent="Manual">
-	<DockPanel x:Name="GamePanel" LastChildFill="True">
-		<Menu x:Name="GameMenu" DockPanel.Dock="Top">
+	<DockPanel x:Name="MainPanel" LastChildFill="True">
+		<Menu x:Name="GameMenu" DockPanel.Dock="Top" Panel.ZIndex="2">
 			<MenuItem x:Name="NewGame"  Header="New" ToolTip="Try another combination" TabIndex="1" Click="NewGame_Click"/>
 			<MenuItem x:Name="SolveGame"  Header="Solve Game" ToolTip="Using this is technically cheating" TabIndex="2">
 				<MenuItem x:Name="SolveWithBFS" Header="BFS" ToolTip="Breadth First Search" TabIndex="3"/>
 				<MenuItem x:Name="SolveWithDFS" Header="DFS" ToolTip="Depth First Search" TabIndex="4"/>
 			</MenuItem>
 		</Menu>
-		<StatusBar x:Name="GameStatus" DockPanel.Dock="Bottom">
+		<StatusBar x:Name="GameStatus" DockPanel.Dock="Bottom" Panel.ZIndex="2">
 			<TextBlock>Moves:</TextBlock>
 			<TextBlock Text="{Binding Moves}"></TextBlock>
 		</StatusBar>
-		<Grid x:Name="GameGrid" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" MinWidth="360" MinHeight="360">
-			<Grid.Resources>
-				<Style x:Key="GameGridCellStyle" TargetType="TextBlock">
-					<Setter Property="MinWidth" Value="120"/>
-					<Setter Property="MinHeight" Value="120"/>
-					<Setter Property="TextAlignment" Value="Center"/>
-					<Setter Property="FontSize" Value="60"/>
-					<Setter Property="Margin" Value="4"/>
-					<Setter Property="Padding" Value="15"/>
-					<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
-					<Style.Triggers>
-						<Trigger Property="Text" Value="0">
-							<Setter Property="Visibility" Value="Hidden"/>
-						</Trigger>
-					</Style.Triggers>
-				</Style>
-			</Grid.Resources>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition/>
-				<ColumnDefinition/>
-				<ColumnDefinition/>
-			</Grid.ColumnDefinitions>
-			<ItemsControl Grid.Column="0" ItemsSource="{Binding CurrentFirstColumn}">
+		<StackPanel x:Name="GamePanel" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" MinWidth="360" MinHeight="360" Panel.ZIndex="1">
+			<ItemsControl ItemsSource="{Binding CurrentGrid}" Panel.ZIndex="0">
+				<ItemsControl.Resources>
+					<Style x:Key="GameGridCellStyle" TargetType="TextBlock">
+						<Setter Property="MinWidth" Value="120"/>
+						<Setter Property="MinHeight" Value="120"/>
+						<Setter Property="TextAlignment" Value="Center"/>
+						<Setter Property="FontSize" Value="60"/>
+						<Setter Property="Margin" Value="4"/>
+						<Setter Property="Padding" Value="15"/>
+						<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+						<Style.Triggers>
+							<Trigger Property="Text" Value="0">
+								<Setter Property="Visibility" Value="Hidden"/>
+							</Trigger>
+						</Style.Triggers>
+					</Style>
+				</ItemsControl.Resources>
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<WrapPanel/>
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
 				<ItemsControl.ItemTemplate>
 					<DataTemplate>
 						<TextBlock Style="{StaticResource GameGridCellStyle}" Text="{Binding}">
@@ -53,28 +54,6 @@
 					</DataTemplate>
 				</ItemsControl.ItemTemplate>
 			</ItemsControl>
-			<ItemsControl Grid.Column="1" ItemsSource="{Binding CurrentSecondColumn}">
-				<ItemsControl.ItemTemplate>
-					<DataTemplate>
-						<TextBlock Style="{StaticResource GameGridCellStyle}" Text="{Binding}">
-							<behaviors:Interaction.Behaviors>
-								<behaviors:MouseDragElementBehavior/>
-							</behaviors:Interaction.Behaviors>
-						</TextBlock>
-					</DataTemplate>
-				</ItemsControl.ItemTemplate>
-			</ItemsControl>
-			<ItemsControl Grid.Column="3" ItemsSource="{Binding CurrentThirdColumn}">
-				<ItemsControl.ItemTemplate>
-					<DataTemplate>
-						<TextBlock Style="{StaticResource GameGridCellStyle}" Text="{Binding}">
-							<behaviors:Interaction.Behaviors>
-								<behaviors:MouseDragElementBehavior/>
-							</behaviors:Interaction.Behaviors>
-						</TextBlock>
-					</DataTemplate>
-				</ItemsControl.ItemTemplate>
-			</ItemsControl>
-		</Grid>
+		</StackPanel>
 	</DockPanel>
 </Window>
