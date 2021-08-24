@@ -26,8 +26,6 @@ namespace EightPuzzleSolver.Models {
 #pragma warning restore IDE0032 // Use auto property
 		#endregion
 		#region Properties
-		public int RowIndex;
-		public int ColumnIndex;
 		/// <summary>
 		/// Current state of the first column of the grid for displaying at the game window
 		/// </summary>
