@@ -46,7 +46,7 @@
 				</ItemsControl.ItemsPanel>
 				<ItemsControl.ItemTemplate>
 					<DataTemplate>
-						<TextBlock Style="{StaticResource GameGridCellStyle}" Text="{Binding}">
+						<TextBlock Style="{StaticResource GameGridCellStyle}" Text="{Binding}" FontWeight="Bold" Cursor="Hand">
 							<behaviors:Interaction.Behaviors>
 								<behaviors:MouseDragElementBehavior/>
 							</behaviors:Interaction.Behaviors>

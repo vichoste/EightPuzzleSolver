@@ -26,6 +26,8 @@ namespace EightPuzzleSolver.Models {
 #pragma warning restore IDE0032 // Use auto property
 		#endregion
 		#region Properties
+		public int RowIndex;
+		public int ColumnIndex;
 		/// <summary>
 		/// Current state of the first column of the grid for displaying at the game window
 		/// </summary>
@@ -81,13 +83,13 @@ namespace EightPuzzleSolver.Models {
 			Random random = new();
 			for (int i = 0; i < 8; i++) {
 				int j = random.Next(i, 9);
-				int row_i = i / 3;
-				int col_i = i % 3;
-				int row_j = j / 3;
-				int col_j = j % 3;
-				byte temp = this.currentGrid[row_i][col_i];
-				this.currentGrid[row_i][col_i] = this.currentGrid[row_j][col_j];
-				this.currentGrid[row_j][col_j] = temp;
+				int rowIndexI = i / 3;
+				int columnIndexI = i % 3;
+				int rowIndexJ = j / 3;
+				int columnIndexJ = j % 3;
+				byte temp = this.currentGrid[rowIndexI][columnIndexI];
+				this.currentGrid[rowIndexI][columnIndexI] = this.currentGrid[rowIndexJ][columnIndexJ];
+				this.currentGrid[rowIndexJ][columnIndexJ] = temp;
 			}
 		}
 		#endregion
