@@ -24,7 +24,7 @@
 			<TextBlock Text="{Binding Moves}"></TextBlock>
 		</StatusBar>
 		<StackPanel x:Name="GamePanel" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" Width="400" Height="400" Panel.ZIndex="1">
-			<ItemsControl ItemsSource="{Binding CurrentGrid}" Panel.ZIndex="0">
+			<ItemsControl ItemsSource="{Binding CurrentGrid}" HorizontalAlignment="Center" Panel.ZIndex="0" TabIndex="0" Padding="7.5">
 				<ItemsControl.Resources>
 					<Style x:Key="GameGridCellStyle" TargetType="TextBlock">
 						<Setter Property="MinWidth" Value="120"/>
@@ -46,7 +46,7 @@
 				</ItemsControl.Resources>
 				<ItemsControl.ItemsPanel>
 					<ItemsPanelTemplate>
-						<WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center"/>
+						<WrapPanel/>
 					</ItemsPanelTemplate>
 				</ItemsControl.ItemsPanel>
 				<ItemsControl.ItemTemplate>
