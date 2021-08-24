@@ -10,7 +10,7 @@ namespace EightPuzzleSolver.Models {
 	/// <summary>
 	/// [You have lost] The game itself.
 	/// </summary>
-	sealed class Game {
+	class Game {
 		#region Attributes
 		/// <summary>
 		/// Current state of the grid
@@ -72,38 +72,45 @@ namespace EightPuzzleSolver.Models {
 		/// Creates a game
 		/// </summary>
 		public Game() {
-			#region Count inversions: https://www.geeksforgeeks.org/check-instance-8-puzzle-solvable/
-			bool isGridValid() {
-				int result = 0;
-				for (int i = 0; i < 3; i++) {
-					for (int j = i + 1; j < 3; j++) {
-						if (this.currentGrid[j][i] > 0 && this.currentGrid[j][i] > this.currentGrid[i][j]) {
-							result++;
-						}
-					}
-				}
-				return result % 2 == 0;
-			}
-			#endregion
-			#region 2D Array shuffle: http://csharphelper.com/blog/2016/10/randomize-two-dimensional-arrays-in-c/
-			void shuffleGrid() {
-				Random random = new();
-				for (int i = 0; i < 8; i++) {
-					int j = random.Next(i, 9);
-					int row_i = i / 3;
-					int col_i = i % 3;
-					int row_j = j / 3;
-					int col_j = j % 3;
-					byte temp = this.currentGrid[row_i][col_i];
-					this.currentGrid[row_i][col_i] = this.currentGrid[row_j][col_j];
-					this.currentGrid[row_j][col_j] = temp;
-				}
-			}
-			#endregion
 			// Safely shuffle the grid
 			do {
-				shuffleGrid();
-			} while (!isGridValid());
+				ShuffleGrid();
+			} while (!IsGridSolvable());
+		}
+		#endregion
+		#region "Inspirations"
+		/// <summary>
+		/// Checks if the grid is solvable.
+		/// Source: https://www.geeksforgeeks.org/check-instance-8-puzzle-solvable/
+		/// </summary>
+		/// <returns>True if it has solution</returns>
+		private bool IsGridSolvable() {
+			int result = 0;
+			for (int i = 0; i < 3; i++) {
+				for (int j = i + 1; j < 3; j++) {
+					if (this.currentGrid[j][i] > 0 && this.currentGrid[j][i] > this.currentGrid[i][j]) {
+						result++;
+					}
+				}
+			}
+			return result % 2 == 0;
+		}
+		/// <summary>
+		/// Randomizes the values of the grid
+		/// Source: https://www.geeksforgeeks.org/check-instance-8-puzzle-solvable/
+		/// </summary>
+		private void ShuffleGrid() {
+			Random random = new();
+			for (int i = 0; i < 8; i++) {
+				int j = random.Next(i, 9);
+				int row_i = i / 3;
+				int col_i = i % 3;
+				int row_j = j / 3;
+				int col_j = j % 3;
+				byte temp = this.currentGrid[row_i][col_i];
+				this.currentGrid[row_i][col_i] = this.currentGrid[row_j][col_j];
+				this.currentGrid[row_j][col_j] = temp;
+			}
 		}
 		#endregion
 	}
