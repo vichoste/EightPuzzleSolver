@@ -10,13 +10,8 @@
 	<Window.DataContext>
 		<models:Game x:Name="GameInstance"/>
 	</Window.DataContext>
-	<StackPanel x:Name="GamePanel">
-		<Grid x:Name="GameGrid">
-			<Grid.RowDefinitions>
-				<RowDefinition/>
-				<RowDefinition/>
-				<RowDefinition/>
-			</Grid.RowDefinitions>
+	<DockPanel x:Name="GamePanel" LastChildFill="True">
+		<Grid x:Name="GameGrid" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition/>
 				<ColumnDefinition/>
@@ -25,8 +20,16 @@
 			<ItemsControl Grid.Column="0" ItemsSource="{Binding CurrentFirstColumn}">
 				<ItemsControl.ItemTemplate>
 					<DataTemplate>
-						<Button>
-							<TextBlock Text="{Binding}"></TextBlock>
+						<Button Content="{Binding}" MinWidth="64" MinHeight="64">
+							<Button.Style>
+								<Style TargetType="Button">
+									<Style.Triggers>
+										<Trigger Property="Content" Value="0">
+											<Setter Property="Visibility" Value="Hidden"/>
+										</Trigger>
+									</Style.Triggers>
+								</Style>
+							</Button.Style>
 						</Button>
 					</DataTemplate>
 				</ItemsControl.ItemTemplate>
@@ -34,21 +37,37 @@
 			<ItemsControl Grid.Column="1" ItemsSource="{Binding CurrentSecondColumn}">
 				<ItemsControl.ItemTemplate>
 					<DataTemplate>
-						<Button>
-							<TextBlock Text="{Binding}"></TextBlock>
+						<Button Content="{Binding}" MinWidth="64" MinHeight="64">
+							<Button.Style>
+								<Style TargetType="Button">
+									<Style.Triggers>
+										<Trigger Property="Content" Value="0">
+											<Setter Property="Visibility" Value="Hidden"/>
+										</Trigger>
+									</Style.Triggers>
+								</Style>
+							</Button.Style>
 						</Button>
 					</DataTemplate>
 				</ItemsControl.ItemTemplate>
 			</ItemsControl>
-			<ItemsControl Grid.Column="2" ItemsSource="{Binding CurrentThirdColumn}">
+			<ItemsControl Grid.Column="3" ItemsSource="{Binding CurrentThirdColumn}">
 				<ItemsControl.ItemTemplate>
 					<DataTemplate>
-						<Button>
-							<TextBlock Text="{Binding}"></TextBlock>
+						<Button Content="{Binding}" MinWidth="64" MinHeight="64">
+							<Button.Style>
+								<Style TargetType="Button">
+									<Style.Triggers>
+										<Trigger Property="Content" Value="0">
+											<Setter Property="Visibility" Value="Hidden"/>
+										</Trigger>
+									</Style.Triggers>
+								</Style>
+							</Button.Style>
 						</Button>
 					</DataTemplate>
 				</ItemsControl.ItemTemplate>
 			</ItemsControl>
 		</Grid>
-	</StackPanel>
+	</DockPanel>
 </Window>
