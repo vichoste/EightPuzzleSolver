@@ -7,8 +7,10 @@
 		xmlns:models="clr-namespace:EightPuzzleSolver.Models"
 		xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-		Loaded="GameWindow_Loaded"
         Title="8-Puzzle Solver" Height="512" Width="512" WindowStyle="SingleBorderWindow" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" SizeToContent="Manual">
+	<Window.DataContext>
+		<models:Game></models:Game>
+	</Window.DataContext>
 	<DockPanel x:Name="MainPanel" LastChildFill="True">
 		<Menu x:Name="GameMenu" DockPanel.Dock="Top" Panel.ZIndex="2">
 			<MenuItem x:Name="NewGame"  Header="New" ToolTip="Try another combination" TabIndex="1" Click="NewGame_Click"/>

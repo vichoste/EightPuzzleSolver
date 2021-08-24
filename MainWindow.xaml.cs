@@ -25,10 +25,6 @@ namespace EightPuzzleSolver {
 		/// </summary>
 		public MainWindow() => this.InitializeComponent();
 		/// <summary>
-		/// Once the window is loaded, create a game
-		/// </summary>
-		private void GameWindow_Loaded(object sender, RoutedEventArgs e) => this.DataContext = new Game();
-		/// <summary>
 		/// Starts a new game
 		/// </summary>
 		private void NewGame_Click(object sender, RoutedEventArgs e) => this.DataContext = new Game();
