@@ -23,7 +23,7 @@
 			<TextBlock>Moves:</TextBlock>
 			<TextBlock Text="{Binding Moves}"></TextBlock>
 		</StatusBar>
-		<StackPanel x:Name="GamePanel" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" MinWidth="360" MinHeight="360" Panel.ZIndex="1">
+		<StackPanel x:Name="GamePanel" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" Width="400" Height="400" Panel.ZIndex="1">
 			<ItemsControl ItemsSource="{Binding CurrentGrid}" Panel.ZIndex="0">
 				<ItemsControl.Resources>
 					<Style x:Key="GameGridCellStyle" TargetType="TextBlock">
@@ -33,6 +33,9 @@
 						<Setter Property="FontSize" Value="60"/>
 						<Setter Property="Margin" Value="4"/>
 						<Setter Property="Padding" Value="15"/>
+						<Setter Property="FontWeight" Value="Bold"/>
+						<Setter Property="Cursor" Value="Hand"/>
+						<Setter Property="Text" Value="{Binding}"/>
 						<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
 						<Style.Triggers>
 							<Trigger Property="Text" Value="0">
@@ -43,12 +46,12 @@
 				</ItemsControl.Resources>
 				<ItemsControl.ItemsPanel>
 					<ItemsPanelTemplate>
-						<WrapPanel/>
+						<WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center"/>
 					</ItemsPanelTemplate>
 				</ItemsControl.ItemsPanel>
 				<ItemsControl.ItemTemplate>
 					<DataTemplate>
-						<TextBlock Style="{StaticResource GameGridCellStyle}" Text="{Binding}" FontWeight="Bold" Cursor="Hand">
+						<TextBlock Style="{StaticResource GameGridCellStyle}">
 							<behaviors:Interaction.Behaviors>
 								<behaviors:MouseDragElementBehavior/>
 							</behaviors:Interaction.Behaviors>
