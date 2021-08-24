@@ -19,7 +19,11 @@ namespace EightPuzzleSolver.Models {
 		/// <summary>
 		/// Move counter
 		/// </summary>
+#pragma warning disable IDE0032 // Use auto property
+#pragma warning disable IDE0044 // Add readonly modifier
 		private long moves = 0;
+#pragma warning restore IDE0044 // Add readonly modifier
+#pragma warning restore IDE0032 // Use auto property
 		#endregion
 		#region Properties
 		/// <summary>
@@ -28,9 +32,9 @@ namespace EightPuzzleSolver.Models {
 		public List<string> CurrentFirstColumn {
 			get {
 				List<string> result = new();
-				for (int i = 0; i < 3; i++) {
-					result.Add(currentGrid[i][0].ToString());
-				}
+				result.Add(currentGrid[0][0].ToString());
+				result.Add(currentGrid[1][0].ToString());
+				result.Add(currentGrid[2][0].ToString());
 				return result;
 			}
 		}
@@ -40,9 +44,9 @@ namespace EightPuzzleSolver.Models {
 		public List<string> CurrentSecondColumn {
 			get {
 				List<string> result = new();
-				for (int i = 0; i < 3; i++) {
-					result.Add(currentGrid[i][1].ToString());
-				}
+				result.Add(currentGrid[0][1].ToString());
+				result.Add(currentGrid[1][1].ToString());
+				result.Add(currentGrid[2][1].ToString());
 				return result;
 			}
 		}
@@ -52,15 +56,16 @@ namespace EightPuzzleSolver.Models {
 		public List<string> CurrentThirdColumn {
 			get {
 				List<string> result = new();
-				for (int i = 0; i < 3; i++) {
-					result.Add(currentGrid[i][2].ToString());
-				}
+				result.Add(currentGrid[0][2].ToString());
+				result.Add(currentGrid[1][2].ToString());
+				result.Add(currentGrid[2][2].ToString());
 				return result;
 			}
 		}
-		public long Moves {
-			get => this.moves;
-		}
+		/// <summary>
+		/// Amount of moves done
+		/// </summary>
+		public long Moves => this.moves;
 		#endregion
 		/// <summary>
 		/// Creates a game
