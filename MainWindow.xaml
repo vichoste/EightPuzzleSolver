@@ -7,7 +7,7 @@
 		xmlns:models="clr-namespace:EightPuzzleSolver.Models"
 		xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-        Title="8-Puzzle Solver" Height="512" Width="512" WindowStyle="SingleBorderWindow" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" SizeToContent="Manual">
+        Title="8-Puzzle Solver" Height="512" Width="512" WindowStyle="SingleBorderWindow" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" SizeToContent="Manual" Background="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}">
 	<Window.DataContext>
 		<models:Game></models:Game>
 	</Window.DataContext>
@@ -39,7 +39,10 @@
 						<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
 						<Style.Triggers>
 							<Trigger Property="Text" Value="0">
-								<Setter Property="Visibility" Value="Hidden"/>
+								<Setter Property="Background" Value="DarkGray"/>
+								<Setter Property="Foreground" Value="Transparent"/>
+								<Setter Property="IsHitTestVisible" Value="False"/>
+								<!--<Setter Property="Visibility" Value="Hidden"/>-->
 							</Trigger>
 						</Style.Triggers>
 					</Style>
