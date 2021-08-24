@@ -11,13 +11,17 @@ namespace EightPuzzleSolver.Models {
 	/// [You have lost] The game itself.
 	/// </summary>
 	sealed class Game {
-		#region Private
+		#region Attributes
 		/// <summary>
 		/// Current state of the grid
 		/// </summary>
 		private readonly byte[][] currentGrid = new byte[][] { new byte[] { 0, 1, 2 }, new byte[] { 3, 4, 5 }, new byte[] { 6, 7, 8 } };
+		/// <summary>
+		/// Move counter
+		/// </summary>
+		private long moves = 0;
 		#endregion
-		#region Observables
+		#region Properties
 		/// <summary>
 		/// Current state of the first column of the grid for displaying at the game window
 		/// </summary>
@@ -53,6 +57,9 @@ namespace EightPuzzleSolver.Models {
 				}
 				return result;
 			}
+		}
+		public long Moves {
+			get => this.moves;
 		}
 		#endregion
 		/// <summary>

@@ -6,11 +6,22 @@
         xmlns:local="clr-namespace:EightPuzzleSolver"
 		xmlns:models="clr-namespace:EightPuzzleSolver.Models"
         mc:Ignorable="d"
-        Title="8 Puzzle Solver" Height="450" Width="800" WindowStyle="ThreeDBorderWindow" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen">
+        Title="8-Puzzle Solver" Height="512" Width="512" WindowStyle="SingleBorderWindow" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" SizeToContent="Manual">
 	<Window.DataContext>
 		<models:Game x:Name="GameInstance"/>
 	</Window.DataContext>
 	<DockPanel x:Name="GamePanel" LastChildFill="True">
+		<Menu x:Name="GameMenu" DockPanel.Dock="Top">
+			<MenuItem Header="New" ToolTip="Try another combination" TabIndex="1"/>
+			<MenuItem Header="Solve" ToolTip="Using this is technically cheating" TabIndex="2">
+				<MenuItem Header="BFS" ToolTip="Breadth First Search" TabIndex="3"/>
+				<MenuItem Header="DFS" ToolTip="Depth First Search" TabIndex="4"/>
+			</MenuItem>
+		</Menu>
+		<StatusBar x:Name="GameStatus" DockPanel.Dock="Bottom">
+			<TextBlock>Moves:</TextBlock>
+			<TextBlock Text="{Binding Moves}"></TextBlock>
+		</StatusBar>
 		<Grid x:Name="GameGrid" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition/>
