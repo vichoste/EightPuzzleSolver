@@ -14,7 +14,7 @@
 	<DockPanel x:Name="MainPanel" LastChildFill="True">
 		<Menu x:Name="GameMenu" DockPanel.Dock="Top" Panel.ZIndex="2">
 			<MenuItem x:Name="NewGame"  Header="New" ToolTip="Try another combination" TabIndex="1" Click="NewGame_Click"/>
-			<MenuItem x:Name="SolveGame"  Header="Solve Game" ToolTip="Using this is technically cheating" TabIndex="2">
+			<MenuItem x:Name="SolveGame"  Header="Solve" ToolTip="Using this is technically cheating" TabIndex="2">
 				<MenuItem x:Name="SolveWithBFS" Header="BFS" ToolTip="Breadth First Search" TabIndex="3"/>
 				<MenuItem x:Name="SolveWithDFS" Header="DFS" ToolTip="Depth First Search" TabIndex="4"/>
 			</MenuItem>
