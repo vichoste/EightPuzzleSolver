@@ -18,7 +18,7 @@ internal class Game {
 	/// Move counter
 	/// </summary>
 	public long MoveAmount {
-		get;
+		get; private set;
 	}
 	/// <summary>
 	/// Current state of the first column of the grid for displaying at the game window
