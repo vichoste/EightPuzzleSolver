@@ -17,7 +17,7 @@ internal class Game {
 	/// <summary>
 	/// Move counter
 	/// </summary>
-	public long MoveAmount {
+	public long Moves {
 		get; private set;
 	}
 	/// <summary>
