@@ -4,12 +4,6 @@
 /// </summary>
 internal class Cell {
 	/// <summary>
-	/// The cell position. This value cannot be changed.
-	/// </summary>
-	public int Position {
-		get; private set;
-	}
-	/// <summary>
 	/// The current value of the cell. This field can be interchanged.
 	/// </summary>
 	public string Number {
@@ -25,10 +19,7 @@ internal class Cell {
 	/// Creates a new cell
 	/// </summary>
 	/// <param name="number">The initial cell value</param>
-	public Cell(string number) {
-		this.Number = number;
-		this.Position = int.Parse(number);// Assuming they are created only once in the program
-	}
+	public Cell(string number) => this.Number = number;
 	/// <summary>
 	/// Returns the current value of the cell
 	/// </summary>

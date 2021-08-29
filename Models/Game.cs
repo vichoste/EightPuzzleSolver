@@ -12,6 +12,14 @@ internal class Game {
 	/// Current state of the grid
 	/// </summary>
 	internal readonly Cell[][] GridValues;
+	/// <summary>
+	/// This is the winning combination. Source: https://www.geeksforgeeks.org/check-instance-8-puzzle-solvable/
+	/// </summary>
+	private readonly int[][] WinningCombination = new int[][] {
+		new int[] {1, 2, 3},
+		new int[] {4, 5, 6},
+		new int[] {7, 8, 0}
+	};
 	#endregion
 	#region Properties
 	/// <summary>
@@ -59,7 +67,23 @@ internal class Game {
 		// Safely shuffle the grid
 		do {
 			this.ShuffleGrid();
-		} while (!this.IsGridSolvable()); // TODO check if the new game doesn't have the solution already
+		} while (!this.IsGridSolvable() && !this.IsSolved());
+	}
+	#endregion
+	#region Methods
+	/// <summary>
+	/// Checks if the game is solved
+	/// </summary>
+	/// <returns>If true, the player has won</returns>
+	public bool IsSolved() {
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				if (int.Parse(this[i, j]) != this.WinningCombination[i][j]) { // Assuming parse will always give an integer
+					return false; // One number mismatch and the game will be considered not solved.
+				}
+			}
+		}
+		return true;
 	}
 	#endregion
 	#region "Inspirations"
@@ -81,7 +105,7 @@ internal class Game {
 	}
 	/// <summary>
 	/// Randomizes the values of the grid
-	/// Source: https://www.geeksforgeeks.org/check-instance-8-puzzle-solvable/
+	/// Source: http://csharphelper.com/blog/2016/10/randomize-two-dimensional-arrays-in-c/
 	/// </summary>
 	private void ShuffleGrid() {
 		Random random = new();
