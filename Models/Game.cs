@@ -68,7 +68,6 @@ internal class Game {
 		do {
 			this.ShuffleGrid();
 		} while (!this.IsGridSolvable() && !this.IsSolved());
-		this.GridValues[0][0].IsActive = true;
 	}
 	#endregion
 	#region Methods
