@@ -11,7 +11,7 @@ internal class Game {
 	/// <summary>
 	/// Current state of the grid
 	/// </summary>
-	private byte[][] GridValues = new byte[][] { new byte[] { 0, 1, 2 }, new byte[] { 3, 4, 5 }, new byte[] { 6, 7, 8 } };
+	private readonly Cell[][] GridValues;
 	#endregion
 	#region Properties
 	/// <summary>
@@ -34,12 +34,21 @@ internal class Game {
 			return result;
 		}
 	}
+	public string this[byte row, byte column] {
+
+	}
 	#endregion
 	#region Constructors
 	/// <summary>
 	/// Creates a game
 	/// </summary>
 	public Game() {
+		// Creates the grid
+		this.GridValues = new Cell[][] {
+			new Cell[] {new Cell(0), new Cell(1), new Cell(2)},
+			new Cell[] {new Cell(3), new Cell(4), new Cell(5)},
+			new Cell[] {new Cell(6), new Cell(7), new Cell(8)}
+		};
 		// Safely shuffle the grid
 		do {
 			this.ShuffleGrid();
