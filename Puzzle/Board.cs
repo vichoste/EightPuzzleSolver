@@ -81,7 +81,7 @@ internal class Board {
 			}
 		}
 		return true;
-	}
+	} // TODO move this in another class
 	/// <summary>
 	/// Moves the empty cell
 	/// </summary>
