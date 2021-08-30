@@ -15,6 +15,5 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<Folder Include="Algorithms\" />
-		<Folder Include="Puzzle\" />
 	</ItemGroup>
 </Project>

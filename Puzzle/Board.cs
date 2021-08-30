@@ -87,7 +87,19 @@ internal class Board {
 	/// </summary>
 	/// <param name="destination">Destination cell</param>
 	/// <returns>True if the movement is valid</returns>
-	internal bool Move(int destination) {
+	internal bool Move(Direction direction) {
+		switch (direction) {
+			case Direction.Up:
+				break;
+			case Direction.Down:
+				break;
+			case Direction.Left:
+				break;
+			case Direction.Right:
+				break;
+			default:
+				break;
+		}
 		return false;
 	}
 	#endregion
