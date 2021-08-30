@@ -31,12 +31,12 @@ internal class Board {
 	/// <summary>
 	/// Gets the current state of the board for displaying at the window
 	/// </summary>
-	public List<(string Number, bool IsActive)> Current {
+	public List<Tuple<string, bool>> Current {
 		get {
-			List<(string Number, bool IsActive)> result = new();
+			List<Tuple<string, bool>> result = new();
 			for (int i = 0; i < 3; i++) {
 				for (int j = 0; j < 3; j++) {
-					result.Add((this.Cells[i][j].Number, this.Cells[i][j].IsActive));
+					result.Add(Tuple.Create(this.Cells[i][j].Number, this.Cells[i][j].IsActive));
 				}
 			}
 			return result;
@@ -47,7 +47,7 @@ internal class Board {
 	/// <summary>
 	/// Creates a game
 	/// </summary>
-	internal Board() {
+	public Board() {
 		// Creates the grid
 		this.Cells = new Cell[][] {
 			new Cell[] {new Cell("0"), new Cell("1"), new Cell("2")},

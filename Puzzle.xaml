@@ -27,7 +27,7 @@
 						<Setter Property="Padding" Value="15"/>
 						<Setter Property="FontWeight" Value="Bold"/>
 						<Setter Property="Cursor" Value="Hand"/>
-						<Setter Property="Text" Value="{Binding Number}"/>
+						<Setter Property="Text" Value="{Binding Item1}"/>
 						<Setter Property="Background" Value="White"/>
 						<Style.Triggers>
 							<Trigger Property="Text" Value="0">
@@ -35,7 +35,7 @@
 								<Setter Property="Foreground" Value="Transparent"/>
 								<Setter Property="IsHitTestVisible" Value="False"/>
 							</Trigger>
-							<DataTrigger Binding="{Binding IsActive}" Value="True">
+							<DataTrigger Binding="{Binding Item2}" Value="True">
 								<Setter Property="Background" Value="#53B8BB"/>
 							</DataTrigger>
 						</Style.Triggers>

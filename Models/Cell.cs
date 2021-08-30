@@ -6,14 +6,14 @@ internal class Cell {
 	/// <summary>
 	/// The current value of the cell. This field can be interchanged.
 	/// </summary>
-	public string Number {
-		get; internal set;
+	internal string Number {
+		get; set;
 	}
 	/// <summary>
 	/// The status of this cell
 	/// </summary>
-	public bool IsActive {
-		get; internal set;
+	internal bool IsActive {
+		get; set;
 	}
 	/// <summary>
 	/// Creates a new cell
