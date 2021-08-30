@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace EightPuzzleSolver.Puzzle;
 
@@ -31,9 +31,9 @@ internal class Board {
 	/// <summary>
 	/// Gets the current state of the board for displaying at the window
 	/// </summary>
-	public List<Tuple<string, bool>> Current {
+	public ObservableCollection<Tuple<string, bool>> Current {
 		get {
-			List<Tuple<string, bool>> result = new();
+			ObservableCollection<Tuple<string, bool>> result = new();
 			for (int i = 0; i < 3; i++) {
 				for (int j = 0; j < 3; j++) {
 					result.Add(Tuple.Create(this.Cells[i][j].Number, this.Cells[i][j].IsActive));
@@ -83,24 +83,51 @@ internal class Board {
 		return true;
 	} // TODO move this in another class
 	/// <summary>
+	/// Swaps number value between two cells
+	/// </summary>
+	/// <param name="firstCell">First cell</param>
+	/// <param name="secondCell">Second cell</param>
+	private static void Swap(Cell firstCell, Cell secondCell) {
+		string temp = firstCell.Number;
+		firstCell.Number = secondCell.Number;
+		secondCell.Number = temp;
+	}
+	/// <summary>
 	/// Moves the empty cell
 	/// </summary>
 	/// <param name="destination">Destination cell</param>
 	/// <returns>True if the movement is valid</returns>
-	internal bool Move(Direction direction) {
+	public void Move(Direction direction) {
 		switch (direction) {
 			case Direction.Up:
-				break;
+				if (this.EmptyCellPosition.Row - 1 < 0) {
+					return;
+				}
+				Swap(this.Cells[this.EmptyCellPosition.Row][this.EmptyCellPosition.Column], this.Cells[this.EmptyCellPosition.Row - 1][this.EmptyCellPosition.Column]);
+				this.EmptyCellPosition = (this.EmptyCellPosition.Row - 1, this.EmptyCellPosition.Column);
+				return;
 			case Direction.Down:
-				break;
+				if (this.EmptyCellPosition.Row + 1 > 2) {
+					return;
+				}
+				Swap(this.Cells[this.EmptyCellPosition.Row][this.EmptyCellPosition.Column], this.Cells[this.EmptyCellPosition.Row + 1][this.EmptyCellPosition.Column]);
+				this.EmptyCellPosition = (this.EmptyCellPosition.Row + 1, this.EmptyCellPosition.Column);
+				return;
 			case Direction.Left:
-				break;
+				if (this.EmptyCellPosition.Column - 1 < 0) {
+					return;
+				}
+				Swap(this.Cells[this.EmptyCellPosition.Row][this.EmptyCellPosition.Column], this.Cells[this.EmptyCellPosition.Row][this.EmptyCellPosition.Column - 1]);
+				this.EmptyCellPosition = (this.EmptyCellPosition.Row, this.EmptyCellPosition.Column - 1);
+				return;
 			case Direction.Right:
-				break;
-			default:
-				break;
+				if (this.EmptyCellPosition.Column + 1 > 2) {
+					return;
+				}
+				Swap(this.Cells[this.EmptyCellPosition.Row][this.EmptyCellPosition.Column], this.Cells[this.EmptyCellPosition.Row][this.EmptyCellPosition.Column + 1]);
+				this.EmptyCellPosition = (this.EmptyCellPosition.Row, this.EmptyCellPosition.Column + 1);
+				return;
 		}
-		return false;
 	}
 	#endregion
 	#region "Inspirations"
@@ -132,9 +159,7 @@ internal class Board {
 			int columnI = i % 3;
 			int rowJ = j / 3;
 			int columnJ = j % 3;
-			string temp = this.Cells[rowI][columnI].Number;
-			this.Cells[rowI][columnI].Number = this.Cells[rowJ][columnJ].Number;
-			this.Cells[rowJ][columnJ].Number = temp;
+			Swap(this.Cells[rowI][columnI], this.Cells[rowJ][columnJ]);
 			this.EmptyCellPosition = int.Parse(this.Cells[rowI][columnI].Number) == 0 ? (rowI, columnI) : (rowJ, columnJ); // Save the position of the empty cell for quick access
 		}
 	}
