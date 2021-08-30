@@ -19,7 +19,7 @@ internal class Board {
 		new int[] {1, 2, 3},
 		new int[] {4, 5, 6},
 		new int[] {7, 8, 0}
-	};
+	}; // TODO move this to another class
 	#endregion
 	#region Properties
 	/// <summary>
@@ -41,6 +41,12 @@ internal class Board {
 			}
 			return result;
 		}
+	}
+	/// <summary>
+	/// Current position of the empty cell
+	/// </summary>
+	public (int Row, int Column) EmptyCellPosition {
+		get; internal set;
 	}
 	#endregion
 	#region Constructors
@@ -76,6 +82,14 @@ internal class Board {
 		}
 		return true;
 	}
+	/// <summary>
+	/// Moves the empty cell
+	/// </summary>
+	/// <param name="destination">Destination cell</param>
+	/// <returns>True if the movement is valid</returns>
+	internal bool Move(int destination) {
+		return false;
+	}
 	#endregion
 	#region "Inspirations"
 	/// <summary>
@@ -109,6 +123,7 @@ internal class Board {
 			string temp = this.Cells[rowI][columnI].Number;
 			this.Cells[rowI][columnI].Number = this.Cells[rowJ][columnJ].Number;
 			this.Cells[rowJ][columnJ].Number = temp;
+			this.EmptyCellPosition = int.Parse(this.Cells[rowI][columnI].Number) == 0 ? (rowI, columnI) : (rowJ, columnJ); // Save the position of the empty cell for quick access
 		}
 	}
 	#endregion
