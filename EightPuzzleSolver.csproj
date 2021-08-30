@@ -1,40 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows10.0.20348.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <UseWPF>true</UseWPF>
-    <MinimumPlatformVersion>7.0</MinimumPlatformVersion>
-    <StartupObject>EightPuzzleSolver.App</StartupObject>
-    <ApplicationIcon>C:\Users\vichoste\source\repos\EightPuzzleSolver\circuit.ico</ApplicationIcon>
-    <IsPublishable>False</IsPublishable>
-    <DebugType>embedded</DebugType>
-    <SignAssembly>False</SignAssembly>
-    <AssemblyName>8 Puzzle Solver</AssemblyName>
-    <Platforms>AnyCPU;x64</Platforms>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <PlatformTarget>x64</PlatformTarget>
-    <Optimize>True</Optimize>
-    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <PlatformTarget>x64</PlatformTarget>
-    <Optimize>True</Optimize>
-    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <PlatformTarget>x64</PlatformTarget>
-    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <PlatformTarget>x64</PlatformTarget>
-    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-  </PropertyGroup>
-
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net6.0-windows10.0.20348.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+		<MinimumPlatformVersion>7.0</MinimumPlatformVersion>
+		<StartupObject>EightPuzzleSolver.App</StartupObject>
+		<ApplicationIcon>C:\Users\vichoste\source\repos\EightPuzzleSolver\circuit.ico</ApplicationIcon>
+		<IsPublishable>False</IsPublishable>
+		<DebugType>embedded</DebugType>
+		<SignAssembly>False</SignAssembly>
+		<AssemblyName>8 Puzzle Solver</AssemblyName>
+		<Platforms>AnyCPU;x64</Platforms>
+	</PropertyGroup>
+	<ItemGroup>
+		<Folder Include="Algorithms\" />
+		<Folder Include="Models\"/>
+	</ItemGroup>
 </Project>

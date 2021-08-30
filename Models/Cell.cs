@@ -19,7 +19,7 @@ internal class Cell {
 	/// Creates a new cell
 	/// </summary>
 	/// <param name="number">The initial cell value</param>
-	public Cell(string number) => this.Number = number;
+	internal Cell(string number) => this.Number = number;
 	/// <summary>
 	/// Returns the current value of the cell
 	/// </summary>

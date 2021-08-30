@@ -4,14 +4,14 @@ using System.Collections.Generic;
 namespace EightPuzzleSolver.Models;
 
 /// <summary>
-/// [You have lost] The game itself.
+/// Board game
 /// </summary>
-internal class Game {
+internal class Board {
 	#region Attributes
 	/// <summary>
-	/// Current state of the grid
+	/// Current state of the board
 	/// </summary>
-	internal readonly Cell[][] GridValues;
+	private readonly Cell[][] Cells;
 	/// <summary>
 	/// This is the winning combination. Source: https://www.geeksforgeeks.org/check-instance-8-puzzle-solvable/
 	/// </summary>
@@ -29,56 +29,47 @@ internal class Game {
 		get; internal set;
 	}
 	/// <summary>
-	/// Current state of the first column of the grid for displaying at the game window
+	/// Gets the current state of the board for displaying at the window
 	/// </summary>
-	public List<Cell> CurrentGrid {
+	public List<(string Number, bool IsActive)> Current {
 		get {
-			List<Cell> result = new();
+			List<(string Number, bool IsActive)> result = new();
 			for (int i = 0; i < 3; i++) {
 				for (int j = 0; j < 3; j++) {
-					result.Add(this.GridValues[i][j]);
+					result.Add((this.Cells[i][j].Number, this.Cells[i][j].IsActive));
 				}
 			}
 			return result;
 		}
-	}
-	/// <summary>
-	/// Gets a string value for a cell
-	/// </summary>
-	/// <param name="row">Row position</param>
-	/// <param name="column">Column position</param>
-	/// <returns>Current value in string</returns>
-	public string this[int row, int column] {
-		get => this.GridValues[row][column].Number;
-		internal set => this.GridValues[row][column].Number = value;
 	}
 	#endregion
 	#region Constructors
 	/// <summary>
 	/// Creates a game
 	/// </summary>
-	public Game() {
+	internal Board() {
 		// Creates the grid
-		this.GridValues = new Cell[][] {
+		this.Cells = new Cell[][] {
 			new Cell[] {new Cell("0"), new Cell("1"), new Cell("2")},
 			new Cell[] {new Cell("3"), new Cell("4"), new Cell("5")},
 			new Cell[] {new Cell("6"), new Cell("7"), new Cell("8")}
 		};
 		// Safely shuffle the grid
 		do {
-			this.ShuffleGrid();
-		} while (!this.IsGridSolvable() && !this.IsSolved());
+			this.Shuffle();
+		} while (!this.IsSolvable() && !this.IsSolved());
 	}
 	#endregion
 	#region Methods
 	/// <summary>
 	/// Checks if the game is solved
+	/// I am lazy to implement a more efficient way of doing this. The arrays will be always 3x3 anyways.
 	/// </summary>
 	/// <returns>If true, the player has won</returns>
-	public bool IsSolved() {
+	internal bool IsSolved() {
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
-				if (int.Parse(this[i, j]) != this.WinningCombination[i][j]) { // Assuming parse will always give an integer
+				if (int.Parse(this.Cells[i][j].Number) != this.WinningCombination[i][j]) { // Assuming parse will always give an integer
 					return false; // One number mismatch and the game will be considered not solved.
 				}
 			}
@@ -88,15 +79,15 @@ internal class Game {
 	#endregion
 	#region "Inspirations"
 	/// <summary>
-	/// Checks if the grid is solvable.
+	/// Checks if the grid is solvable
 	/// Source: https://www.geeksforgeeks.org/check-instance-8-puzzle-solvable/
 	/// </summary>
 	/// <returns>True if it has solution</returns>
-	private bool IsGridSolvable() {
+	private bool IsSolvable() {
 		int result = 0;
 		for (int i = 0; i < 3; i++) {
 			for (int j = i + 1; j < 3; j++) {
-				if (int.Parse(this[j,i]) > 0 && int.Parse(this[j,i]) > int.Parse(this[i,j])) { // Assuming they will always be integers
+				if (int.Parse(this.Cells[i][j].Number) > 0 && int.Parse(this.Cells[i][j].Number) > int.Parse(this.Cells[i][j].Number)) { // Assuming they will always be integers
 					result++;
 				}
 			}
@@ -107,7 +98,7 @@ internal class Game {
 	/// Randomizes the values of the grid
 	/// Source: http://csharphelper.com/blog/2016/10/randomize-two-dimensional-arrays-in-c/
 	/// </summary>
-	private void ShuffleGrid() {
+	private void Shuffle() {
 		Random random = new();
 		for (int i = 0; i < 8; i++) {
 			int j = random.Next(i, 9);
@@ -115,9 +106,9 @@ internal class Game {
 			int columnI = i % 3;
 			int rowJ = j / 3;
 			int columnJ = j % 3;
-			string temp = this.GridValues[rowI][columnI].Number;
-			this.GridValues[rowI][columnI].Number = this.GridValues[rowJ][columnJ].Number;
-			this.GridValues[rowJ][columnJ].Number = temp;
+			string temp = this.Cells[rowI][columnI].Number;
+			this.Cells[rowI][columnI].Number = this.Cells[rowJ][columnJ].Number;
+			this.Cells[rowJ][columnJ].Number = temp;
 		}
 	}
 	#endregion
