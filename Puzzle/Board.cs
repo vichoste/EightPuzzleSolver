@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EightPuzzleSolver.Models;
+namespace EightPuzzleSolver.Puzzle;
 
 /// <summary>
 /// Board game

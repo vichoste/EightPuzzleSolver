@@ -1,5 +1,5 @@
 ﻿<!-- Palletes: https://colorhunt.co/palette/0820322c394b334756ff4c29 https://colorhunt.co/palette/00363805505253b8bbf3f2c9 -->
-<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" x:Class="EightPuzzleSolver.Puzzle" xmlns:Puzzle="clr-namespace:EightPuzzleSolver.Models" mc:Ignorable="d" Title="8-Puzzle Solver" Height="512" Width="512" WindowStyle="SingleBorderWindow" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" SizeToContent="Manual" Background="#082032">
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" x:Class="EightPuzzleSolver.Game" xmlns:Puzzle="clr-namespace:EightPuzzleSolver.Puzzle" mc:Ignorable="d" Title="8-Puzzle Solver" Height="512" Width="512" WindowStyle="SingleBorderWindow" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" SizeToContent="Manual" Background="#082032">
 	<Window.DataContext>
 		<Puzzle:Board/>
 	</Window.DataContext>

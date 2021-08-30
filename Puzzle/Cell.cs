@@ -1,4 +1,4 @@
-﻿namespace EightPuzzleSolver.Models;
+﻿namespace EightPuzzleSolver.Puzzle;
 /// <summary>
 /// This is one cell
 /// </summary>

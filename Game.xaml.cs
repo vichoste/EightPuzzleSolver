@@ -1,16 +1,16 @@
 ﻿using System.Windows;
 
-using EightPuzzleSolver.Models;
+using EightPuzzleSolver.Puzzle;
 
 namespace EightPuzzleSolver;
 /// <summary>
-/// Puzzle
+/// Game
 /// </summary>
-public partial class Puzzle : Window {
+public partial class Game : Window {
 	/// <summary>
 	/// Initializes the window
 	/// </summary>
-	public Puzzle() => this.InitializeComponent();
+	public Game() => this.InitializeComponent();
 	/// <summary>
 	/// Starts a new game
 	/// </summary>
