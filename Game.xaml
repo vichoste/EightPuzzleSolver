@@ -16,7 +16,7 @@
 			<TextBlock Text="{Binding Moves}"></TextBlock>
 		</StatusBar>
 		<StackPanel x:Name="GamePanel" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#2C394B" Width="400" Height="400" Panel.ZIndex="1">
-			<ItemsControl x:Name="Cells" ItemsSource="{Binding Current}" HorizontalAlignment="Center" Panel.ZIndex="0" TabIndex="0" Padding="7.5">
+			<ItemsControl x:Name="Cells" ItemsSource="{Binding Cells}" HorizontalAlignment="Center" Panel.ZIndex="0" TabIndex="0" Padding="7.5">
 				<ItemsControl.Resources>
 					<Style x:Key="GameGridCellStyle" TargetType="TextBlock">
 						<Setter Property="MinWidth" Value="120"/>
@@ -27,7 +27,7 @@
 						<Setter Property="Padding" Value="15"/>
 						<Setter Property="FontWeight" Value="Bold"/>
 						<Setter Property="Cursor" Value="Hand"/>
-						<Setter Property="Text" Value="{Binding Item1}"/>
+						<Setter Property="Text" Value="{Binding}"/>
 						<Setter Property="Background" Value="White"/>
 						<Style.Triggers>
 							<Trigger Property="Text" Value="0">
@@ -35,7 +35,7 @@
 								<Setter Property="Foreground" Value="Transparent"/>
 								<Setter Property="IsHitTestVisible" Value="False"/>
 							</Trigger>
-							<DataTrigger Binding="{Binding Item2}" Value="True">
+							<DataTrigger Binding="{Binding}" Value="True">
 								<Setter Property="Background" Value="#53B8BB"/>
 							</DataTrigger>
 						</Style.Triggers>

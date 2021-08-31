@@ -19,20 +19,23 @@ public partial class Game : Window {
 	/// <summary>
 	/// Moves the empty cell once the user presses an arrow key
 	/// </summary>
-	private void GameWindow_KeyDown(object sender, KeyEventArgs e) {
+	private void GameWindow_KeyDown(object sender, KeyEventArgs e) { // TODO Don't allow more than one key pressed
 		switch (e.Key) {
 			case Key.Up:
 				this.Board.Move(Direction.Up);
 				break;
 			case Key.Down:
-				this.Board.Move(Direction.Up);
+				this.Board.Move(Direction.Down);
 				break;
 			case Key.Left:
-				this.Board.Move(Direction.Up);
+				this.Board.Move(Direction.Left);
 				break;
 			case Key.Right:
-				this.Board.Move(Direction.Up);
+				this.Board.Move(Direction.Right);
 				break;
 		}
+		/* I won't waste time by remembering and looking for how the fuck to proper databinding, just bruteforce this, holy fucking shit */
+		this.DataContext = null;
+		this.DataContext = this.Board;
 	}
 }
