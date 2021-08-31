@@ -36,6 +36,6 @@ public partial class Game : Window {
 		}
 		/* I won't waste time by remembering and looking for how the fuck to proper databinding, just bruteforce this, holy fucking shit */
 		this.DataContext = null;
-		this.DataContext = this.Board;
+		this.DataContext = this.Board; // TODO This breaks the NEW board
 	}
 }
