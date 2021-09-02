@@ -4,14 +4,14 @@ using System.Collections.Generic;
 namespace EightPuzzleSolver.Puzzle;
 
 /// <summary>
-/// Board game
+/// Play game
 /// </summary>
-internal class Board {
+internal class Play {
 	#region Properties
 	/// <summary>
-	/// Current state of the board
+	/// Board game
 	/// </summary>
-	public List<string> Cells {
+	public List<string> Board {
 		get; internal set;
 	}
 	/// <summary>
@@ -31,9 +31,9 @@ internal class Board {
 	/// <summary>
 	/// Creates a game
 	/// </summary>
-	public Board() {
+	public Play() {
 		// Creates the grid
-		this.Cells = new() {
+		this.Board = new() {
 			"0",
 			"1",
 			"2",
@@ -57,9 +57,9 @@ internal class Board {
 	/// <param name="firstCell">First cell</param>
 	/// <param name="secondCell">Second cell</param>
 	private void Swap(int firstIndex, int secondIndex) {
-		string temp = this.Cells[firstIndex];
-		this.Cells[firstIndex] = this.Cells[secondIndex];
-		this.Cells[secondIndex] = temp;
+		string temp = this.Board[firstIndex];
+		this.Board[firstIndex] = this.Board[secondIndex];
+		this.Board[secondIndex] = temp;
 	}
 	/// <summary>
 	/// Moves the empty cell
@@ -109,7 +109,7 @@ internal class Board {
 		int result = 0;
 		for (int i = 0; i < 3; i++) {
 			for (int j = i + 1; j < 3; j++) {
-				if (int.Parse(this.Cells[i * 3 + j]) > 0 && int.Parse(this.Cells[i * 3 + j]) > int.Parse(this.Cells[i * 3 + j])) { // Assuming they will always be integers
+				if (int.Parse(this.Board[i * 3 + j]) > 0 && int.Parse(this.Board[i * 3 + j]) > int.Parse(this.Board[i * 3 + j])) { // Assuming they will always be integers
 					result++;
 				}
 			}
@@ -129,7 +129,7 @@ internal class Board {
 			int rowJ = j / 3;
 			int columnJ = j % 3;
 			this.Swap(rowI * 3 + columnI, rowJ * 3 + columnJ);
-			this.EmptyCellPosition = int.Parse(this.Cells[rowI * 3 + columnI]) == 0 ? (rowI, columnI) : int.Parse(this.Cells[rowJ * 3 + columnJ]) == 0 ? (rowJ, columnJ) : this.EmptyCellPosition; // Save the position of the empty cell for quick access
+			this.EmptyCellPosition = int.Parse(this.Board[rowI * 3 + columnI]) == 0 ? (rowI, columnI) : int.Parse(this.Board[rowJ * 3 + columnJ]) == 0 ? (rowJ, columnJ) : this.EmptyCellPosition; // Save the position of the empty cell for quick access
 		}
 	}
 	#endregion

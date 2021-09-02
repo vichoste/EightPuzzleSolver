@@ -29,28 +29,29 @@ public partial class Game : Window {
 	/// <summary>
 	/// Starts a new game
 	/// </summary>
-	private void NewGame_Click(object sender, RoutedEventArgs e) => this.DataContext = new Board(); // Effective but it gives bugs
+	private void NewGame_Click(object sender, RoutedEventArgs e) => this.DataContext = new Play(); // Effective but it gives bugs
 	/// <summary>
 	/// Moves the empty cell once the user presses an arrow key
 	/// </summary>
 	private void GameWindow_KeyDown(object sender, KeyEventArgs e) { // TODO Don't allow more than one key pressed
 		switch (e.Key) {
 			case Key.Up:
-				this.Board.Move(Direction.Up);
+				this.Play.Move(Direction.Up);
 				break;
 			case Key.Down:
-				this.Board.Move(Direction.Down);
+				this.Play.Move(Direction.Down);
 				break;
 			case Key.Left:
-				this.Board.Move(Direction.Left);
+				this.Play.Move(Direction.Left);
 				break;
 			case Key.Right:
-				this.Board.Move(Direction.Right);
+				this.Play.Move(Direction.Right);
 				break;
 		}
+
 		/* I won't waste time by remembering and looking for how the fuck to proper databinding, just bruteforce this, holy fucking shit */
 		this.DataContext = null;
-		this.DataContext = this.Board; // TODO This breaks the NEW board
+		this.DataContext = this.Play; // TODO This breaks the NEW board
 	}
 	#endregion
 	#region Methods
@@ -62,7 +63,7 @@ public partial class Game : Window {
 	internal bool IsSolved() {
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
-				if (int.Parse(this.Board.Cells.ElementAt(i * 3 + j)) != this.WinningCombination[i][j]) { // Assuming parse will always give an integer
+				if (int.Parse(this.Play.Board.ElementAt(i * 3 + j)) != this.WinningCombination[i][j]) { // Assuming parse will always give an integer
 					return false; // One number mismatch and the game will be considered not solved.
 				}
 			}
