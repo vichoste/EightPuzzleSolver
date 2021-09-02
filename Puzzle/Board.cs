@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace EightPuzzleSolver.Puzzle;
 
@@ -12,7 +11,7 @@ internal class Board {
 	/// <summary>
 	/// Current state of the board
 	/// </summary>
-	public List<Cell> Cells {
+	public List<string> Cells {
 		get; internal set;
 	}
 	/// <summary>
@@ -35,15 +34,15 @@ internal class Board {
 	public Board() {
 		// Creates the grid
 		this.Cells = new() {
-			new Cell("0"),
-			new Cell("1"),
-			new Cell("2"),
-			new Cell("3"),
-			new Cell("4"),
-			new Cell("5"),
-			new Cell("6"),
-			new Cell("7"),
-			new Cell("8")
+			"0",
+			"1",
+			"2",
+			"3",
+			"4",
+			"5",
+			"6",
+			"7",
+			"8"
 		};
 		// Safely shuffle the grid
 		do {
@@ -57,10 +56,10 @@ internal class Board {
 	/// </summary>
 	/// <param name="firstCell">First cell</param>
 	/// <param name="secondCell">Second cell</param>
-	private static void Swap(Cell firstCell, Cell secondCell) {
-		string temp = firstCell.Number;
-		firstCell.Number = secondCell.Number;
-		secondCell.Number = temp;
+	private void Swap(int firstIndex, int secondIndex) {
+		string temp = this.Cells[firstIndex];
+		this.Cells[firstIndex] = this.Cells[secondIndex];
+		this.Cells[secondIndex] = temp;
 	}
 	/// <summary>
 	/// Moves the empty cell
@@ -73,28 +72,28 @@ internal class Board {
 				if (this.EmptyCellPosition.Row - 1 < 0) {
 					return;
 				}
-				Swap(this.Cells.ElementAt(this.EmptyCellPosition.Row * 3 + this.EmptyCellPosition.Column), this.Cells.ElementAt(( this.EmptyCellPosition.Row - 1 ) * 3 + this.EmptyCellPosition.Column));
+				this.Swap(this.EmptyCellPosition.Row * 3 + this.EmptyCellPosition.Column, ( this.EmptyCellPosition.Row - 1 ) * 3 + this.EmptyCellPosition.Column);
 				this.EmptyCellPosition = (this.EmptyCellPosition.Row - 1, this.EmptyCellPosition.Column);
 				break;
 			case Direction.Down:
 				if (this.EmptyCellPosition.Row + 1 > 2) {
 					return;
 				}
-				Swap(this.Cells.ElementAt(this.EmptyCellPosition.Row * 3 + this.EmptyCellPosition.Column), this.Cells.ElementAt(( this.EmptyCellPosition.Row + 1 ) * 3 + this.EmptyCellPosition.Column));
+				this.Swap(this.EmptyCellPosition.Row * 3 + this.EmptyCellPosition.Column, ( this.EmptyCellPosition.Row + 1 ) * 3 + this.EmptyCellPosition.Column);
 				this.EmptyCellPosition = (this.EmptyCellPosition.Row + 1, this.EmptyCellPosition.Column);
 				break;
 			case Direction.Left:
 				if (this.EmptyCellPosition.Column - 1 < 0) {
 					return;
 				}
-				Swap(this.Cells.ElementAt(this.EmptyCellPosition.Row * 3 + this.EmptyCellPosition.Column), this.Cells.ElementAt(this.EmptyCellPosition.Row * 3 + this.EmptyCellPosition.Column - 1));
+				this.Swap(this.EmptyCellPosition.Row * 3 + this.EmptyCellPosition.Column, this.EmptyCellPosition.Row * 3 + this.EmptyCellPosition.Column - 1);
 				this.EmptyCellPosition = (this.EmptyCellPosition.Row, this.EmptyCellPosition.Column - 1);
 				break;
 			case Direction.Right:
 				if (this.EmptyCellPosition.Column + 1 > 2) {
 					return;
 				}
-				Swap(this.Cells.ElementAt(this.EmptyCellPosition.Row * 3 + this.EmptyCellPosition.Column), this.Cells.ElementAt(this.EmptyCellPosition.Row * 3 + this.EmptyCellPosition.Column + 1));
+				this.Swap(this.EmptyCellPosition.Row * 3 + this.EmptyCellPosition.Column, this.EmptyCellPosition.Row * 3 + this.EmptyCellPosition.Column + 1);
 				this.EmptyCellPosition = (this.EmptyCellPosition.Row, this.EmptyCellPosition.Column + 1);
 				break;
 		}
@@ -110,7 +109,7 @@ internal class Board {
 		int result = 0;
 		for (int i = 0; i < 3; i++) {
 			for (int j = i + 1; j < 3; j++) {
-				if (int.Parse(this.Cells.ElementAt(i * 3 + j).Number) > 0 && int.Parse(this.Cells.ElementAt(i * 3 + j).Number) > int.Parse(this.Cells.ElementAt(i * 3 + j).Number)) { // Assuming they will always be integers
+				if (int.Parse(this.Cells[i * 3 + j]) > 0 && int.Parse(this.Cells[i * 3 + j]) > int.Parse(this.Cells[i * 3 + j])) { // Assuming they will always be integers
 					result++;
 				}
 			}
@@ -129,8 +128,8 @@ internal class Board {
 			int columnI = i % 3;
 			int rowJ = j / 3;
 			int columnJ = j % 3;
-			Swap(this.Cells.ElementAt(rowI * 3 + columnI), this.Cells.ElementAt(rowJ * 3 + columnJ));
-			this.EmptyCellPosition = int.Parse(this.Cells.ElementAt(rowI * 3 + columnI).Number) == 0 ? (rowI, columnI) : int.Parse(this.Cells.ElementAt(rowJ * 3 + columnJ).Number) == 0 ? (rowJ, columnJ) : this.EmptyCellPosition; // Save the position of the empty cell for quick access
+			this.Swap(rowI * 3 + columnI, rowJ * 3 + columnJ);
+			this.EmptyCellPosition = int.Parse(this.Cells[rowI * 3 + columnI]) == 0 ? (rowI, columnI) : int.Parse(this.Cells[rowJ * 3 + columnJ]) == 0 ? (rowJ, columnJ) : this.EmptyCellPosition; // Save the position of the empty cell for quick access
 		}
 	}
 	#endregion

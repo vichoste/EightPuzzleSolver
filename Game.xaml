@@ -35,9 +35,6 @@
 								<Setter Property="Foreground" Value="Transparent"/>
 								<Setter Property="IsHitTestVisible" Value="False"/>
 							</Trigger>
-							<DataTrigger Binding="{Binding}" Value="True">
-								<Setter Property="Background" Value="#53B8BB"/>
-							</DataTrigger>
 						</Style.Triggers>
 					</Style>
 				</ItemsControl.Resources>

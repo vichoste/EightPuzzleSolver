@@ -62,7 +62,7 @@ public partial class Game : Window {
 	internal bool IsSolved() {
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
-				if (int.Parse(this.Board.Cells.ElementAt(i * 3 + j).Number) != this.WinningCombination[i][j]) { // Assuming parse will always give an integer
+				if (int.Parse(this.Board.Cells.ElementAt(i * 3 + j)) != this.WinningCombination[i][j]) { // Assuming parse will always give an integer
 					return false; // One number mismatch and the game will be considered not solved.
 				}
 			}
