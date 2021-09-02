@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace EightPuzzleSolver.Puzzle;
 
@@ -26,7 +23,7 @@ internal class Board {
 	/// Current state of the board
 	/// </summary>
 	public List<Cell> Cells {
-		get; internal set;	
+		get; internal set;
 	}
 	/// <summary>
 	/// Move counter
@@ -108,7 +105,7 @@ internal class Board {
 				if (this.EmptyCellPosition.Row + 1 > 2) {
 					return;
 				}
-				Swap(this.Cells.ElementAt(this.EmptyCellPosition.Row * 3 + this.EmptyCellPosition.Column), this.Cells.ElementAt((this.EmptyCellPosition.Row + 1) * 3 + this.EmptyCellPosition.Column));
+				Swap(this.Cells.ElementAt(this.EmptyCellPosition.Row * 3 + this.EmptyCellPosition.Column), this.Cells.ElementAt(( this.EmptyCellPosition.Row + 1 ) * 3 + this.EmptyCellPosition.Column));
 				this.EmptyCellPosition = (this.EmptyCellPosition.Row + 1, this.EmptyCellPosition.Column);
 				break;
 			case Direction.Left:
