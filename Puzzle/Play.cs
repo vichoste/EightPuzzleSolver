@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+
+using Microsoft.VisualBasic;
 
 namespace EightPuzzleSolver.Puzzle;
 
@@ -7,12 +10,26 @@ namespace EightPuzzleSolver.Puzzle;
 /// Play game
 /// </summary>
 internal class Play {
+	#region Attributes
+	private List<string> board;
+	private (int Row, int Column) emptyCellPosition;
+	#endregion
 	#region Properties
 	/// <summary>
 	/// Board game
 	/// </summary>
 	public List<string> Board {
-		get; internal set;
+		get => new(this.board);
+		internal set {
+			if (value.Count != 9) {
+				throw new ArgumentException("Board needs 9 values");
+			}
+			string[] validNumbers = new[] { "0", "1", "2", "3", "4", "5", "6", "7", "8" };
+			if (!value.Intersect(validNumbers).Any()) {
+				throw new ArgumentException("Only numbers from 0 to 8 are allowed");
+			}
+			this.board = value;
+		}
 	}
 	/// <summary>
 	/// Move counter
@@ -24,7 +41,13 @@ internal class Play {
 	/// Current position of the empty cell
 	/// </summary>
 	public (int Row, int Column) EmptyCellPosition {
-		get; internal set;
+		get => (this.emptyCellPosition.Row, this.emptyCellPosition.Column);
+		internal set {
+			if (value.Row < 0 || value.Row > 2 || value.Column < 0 || value.Column > 2) {
+				throw new IndexOutOfRangeException($"Cell position ({value.Row}, {value.Column}) is out of range.");
+			}
+			emptyCellPosition = value;
+		}
 	}
 	#endregion
 	#region Constructors
@@ -33,7 +56,7 @@ internal class Play {
 	/// </summary>
 	public Play() {
 		// Creates the new board
-		this.Board = new() {
+		this.board = new() {
 			"0",
 			"1",
 			"2",
@@ -60,7 +83,7 @@ internal class Play {
 		int result = 0;
 		for (int i = 0; i < 3; i++) {
 			for (int j = i + 1; j < 3; j++) {
-				if (int.Parse(this.Board[i * 3 + j]) > 0 && int.Parse(this.Board[i * 3 + j]) > int.Parse(this.Board[i * 3 + j])) { // Assuming they will always be integers
+				if (int.Parse(this.board[i * 3 + j]) > 0 && int.Parse(this.board[i * 3 + j]) > int.Parse(this.board[i * 3 + j])) { // Assuming they will always be integers
 					result++;
 				}
 			}
@@ -79,8 +102,8 @@ internal class Play {
 			int columnI = i % 3;
 			int rowJ = j / 3;
 			int columnJ = j % 3;
-			Swap(this.Board, rowI * 3 + columnI, rowJ * 3 + columnJ);
-			this.EmptyCellPosition = int.Parse(this.Board[rowI * 3 + columnI]) == 0 ? (rowI, columnI) : int.Parse(this.Board[rowJ * 3 + columnJ]) == 0 ? (rowJ, columnJ) : this.EmptyCellPosition; // Save the position of the empty cell for quick access
+			Swap(this.board, rowI * 3 + columnI, rowJ * 3 + columnJ);
+			this.EmptyCellPosition = int.Parse(this.board[rowI * 3 + columnI]) == 0 ? (rowI, columnI) : int.Parse(this.board[rowJ * 3 + columnJ]) == 0 ? (rowJ, columnJ) : this.EmptyCellPosition; // Save the position of the empty cell for quick access
 		}
 	}
 	#endregion

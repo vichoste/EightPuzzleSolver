@@ -36,9 +36,9 @@ public partial class Game : Window {
 				break;
 		}
 		// Move
-		((int, int) EmptyCellPosition, var Board) = Play.Move(this.Play.Board, direction, this.Play.EmptyCellPosition);
-		this.Play.EmptyCellPosition = EmptyCellPosition;
-		this.Play.Board = Board;
+		((int, int) emptyCellPosition, var board) = Play.Move(this.Play.Board, direction, this.Play.EmptyCellPosition);
+		this.Play.EmptyCellPosition = emptyCellPosition;
+		this.Play.Board = board;
 		/* I won't waste time by remembering and looking for how the fuck to proper databinding, just bruteforce this, holy fucking shit */
 		this.DataContext = null;
 		this.DataContext = this.Play; // TODO This breaks the NEW board
