@@ -8,16 +8,6 @@ namespace EightPuzzleSolver.Puzzle;
 /// Board game
 /// </summary>
 internal class Board {
-	#region Attributes
-	/// <summary>
-	/// This is the winning combination. Source: https://www.geeksforgeeks.org/check-instance-8-puzzle-solvable/
-	/// </summary>
-	private readonly int[][] WinningCombination = new int[][] {
-		new int[] {1, 2, 3},
-		new int[] {4, 5, 6},
-		new int[] {7, 8, 0}
-	}; // TODO move this to another class
-	#endregion
 	#region Properties
 	/// <summary>
 	/// Current state of the board
@@ -58,25 +48,10 @@ internal class Board {
 		// Safely shuffle the grid
 		do {
 			this.Shuffle();
-		} while (!this.IsSolvable() && !this.IsSolved());
+		} while (!this.IsSolvable());
 	}
 	#endregion
 	#region Methods
-	/// <summary>
-	/// Checks if the game is solved
-	/// I am lazy to implement a more efficient way of doing this. The arrays will be always 3x3 anyways.
-	/// </summary>
-	/// <returns>If true, the player has won</returns>
-	internal bool IsSolved() {
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (int.Parse(this.Cells.ElementAt(i * 3 + j).Number) != this.WinningCombination[i][j]) { // Assuming parse will always give an integer
-					return false; // One number mismatch and the game will be considered not solved.
-				}
-			}
-		}
-		return true;
-	} // TODO move this in another class
 	/// <summary>
 	/// Swaps number value between two cells
 	/// </summary>

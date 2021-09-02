@@ -13,7 +13,4 @@
 		<AssemblyName>8 Puzzle Solver</AssemblyName>
 		<Platforms>AnyCPU;x64</Platforms>
 	</PropertyGroup>
-	<ItemGroup>
-		<Folder Include="Algorithms\" />
-	</ItemGroup>
 </Project>
