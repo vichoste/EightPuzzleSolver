@@ -32,7 +32,7 @@ internal class Play {
 	/// Creates a game
 	/// </summary>
 	public Play() {
-		// Creates the grid
+		// Creates the new board
 		this.Board = new() {
 			"0",
 			"1",
@@ -44,7 +44,7 @@ internal class Play {
 			"7",
 			"8"
 		};
-		// Safely shuffle the grid
+		// Safely shuffle the board
 		do {
 			this.Shuffle();
 		} while (!this.IsSolvable());
@@ -52,51 +52,42 @@ internal class Play {
 	#endregion
 	#region Methods
 	/// <summary>
-	/// Swaps number value between two cells
+	/// Swaps two numbers within the board
 	/// </summary>
 	/// <param name="firstCell">First cell</param>
 	/// <param name="secondCell">Second cell</param>
-	private void Swap(int firstIndex, int secondIndex) {
-		string temp = this.Board[firstIndex];
-		this.Board[firstIndex] = this.Board[secondIndex];
-		this.Board[secondIndex] = temp;
+	private static void Swap(List<string> board, int firstIndex, int secondIndex) {
+		string temp = board[firstIndex];
+		board[firstIndex] = board[secondIndex];
+		board[secondIndex] = temp;
 	}
 	/// <summary>
 	/// Moves the empty cell
 	/// </summary>
-	/// <param name="destination">Destination cell</param>
-	/// <returns>True if the movement is valid</returns>
-	public void Move(Direction direction) {
+	/// <param name="board">Board which we want to move the cell</param>
+	/// <param name="direction">Direction of the movement</param>
+	/// <param name="emptyCellPosition">The position of the empty cell</param>
+	/// <returns>Tuple of new empty cell coordinates and the board with the new positions because of the movement operation. If the movement is invalid, return unchanged</returns>
+	public static ((int Row, int Column) EmptyCellPosition, List<string> Board) Move(List<string> board, Direction direction, (int Row, int Column) emptyCellPosition) {
+		if (direction == Direction.Up && emptyCellPosition.Row - 1 < 0 || direction == Direction.Down && emptyCellPosition.Row + 1 > 2 || direction == Direction.Left && emptyCellPosition.Column - 1 < 0 || direction == Direction.Right && emptyCellPosition.Column + 1 > 2) {
+			return (emptyCellPosition, board);
+		}
+		List<string> @new = new(board);
 		switch (direction) {
 			case Direction.Up:
-				if (this.EmptyCellPosition.Row - 1 < 0) {
-					return;
-				}
-				this.Swap(this.EmptyCellPosition.Row * 3 + this.EmptyCellPosition.Column, ( this.EmptyCellPosition.Row - 1 ) * 3 + this.EmptyCellPosition.Column);
-				this.EmptyCellPosition = (this.EmptyCellPosition.Row - 1, this.EmptyCellPosition.Column);
-				break;
+				Swap(@new, emptyCellPosition.Row * 3 + emptyCellPosition.Column, ( emptyCellPosition.Row - 1 ) * 3 + emptyCellPosition.Column);
+				return ((emptyCellPosition.Row - 1, emptyCellPosition.Column), @new);
 			case Direction.Down:
-				if (this.EmptyCellPosition.Row + 1 > 2) {
-					return;
-				}
-				this.Swap(this.EmptyCellPosition.Row * 3 + this.EmptyCellPosition.Column, ( this.EmptyCellPosition.Row + 1 ) * 3 + this.EmptyCellPosition.Column);
-				this.EmptyCellPosition = (this.EmptyCellPosition.Row + 1, this.EmptyCellPosition.Column);
-				break;
+				Swap(@new, emptyCellPosition.Row * 3 + emptyCellPosition.Column, ( emptyCellPosition.Row + 1 ) * 3 + emptyCellPosition.Column);
+				return ((emptyCellPosition.Row + 1, emptyCellPosition.Column), @new);
 			case Direction.Left:
-				if (this.EmptyCellPosition.Column - 1 < 0) {
-					return;
-				}
-				this.Swap(this.EmptyCellPosition.Row * 3 + this.EmptyCellPosition.Column, this.EmptyCellPosition.Row * 3 + this.EmptyCellPosition.Column - 1);
-				this.EmptyCellPosition = (this.EmptyCellPosition.Row, this.EmptyCellPosition.Column - 1);
-				break;
+				Swap(@new, emptyCellPosition.Row * 3 + emptyCellPosition.Column, emptyCellPosition.Row * 3 + emptyCellPosition.Column - 1);
+				return ((emptyCellPosition.Row, emptyCellPosition.Column - 1), @new);
 			case Direction.Right:
-				if (this.EmptyCellPosition.Column + 1 > 2) {
-					return;
-				}
-				this.Swap(this.EmptyCellPosition.Row * 3 + this.EmptyCellPosition.Column, this.EmptyCellPosition.Row * 3 + this.EmptyCellPosition.Column + 1);
-				this.EmptyCellPosition = (this.EmptyCellPosition.Row, this.EmptyCellPosition.Column + 1);
-				break;
+				Swap(@new, emptyCellPosition.Row * 3 + emptyCellPosition.Column, emptyCellPosition.Row * 3 + emptyCellPosition.Column + 1);
+				return ((emptyCellPosition.Row, emptyCellPosition.Column + 1), @new);
 		}
+		return (emptyCellPosition, board);
 	}
 	#endregion
 	#region "Inspirations"
@@ -117,7 +108,7 @@ internal class Play {
 		return result % 2 == 0;
 	}
 	/// <summary>
-	/// Randomizes the values of the board cells
+	/// Randomizes the values within the board
 	/// Source: http://csharphelper.com/blog/2016/10/randomize-two-dimensional-arrays-in-c/
 	/// </summary>
 	private void Shuffle() {
@@ -128,7 +119,7 @@ internal class Play {
 			int columnI = i % 3;
 			int rowJ = j / 3;
 			int columnJ = j % 3;
-			this.Swap(rowI * 3 + columnI, rowJ * 3 + columnJ);
+			Swap(this.Board, rowI * 3 + columnI, rowJ * 3 + columnJ);
 			this.EmptyCellPosition = int.Parse(this.Board[rowI * 3 + columnI]) == 0 ? (rowI, columnI) : int.Parse(this.Board[rowJ * 3 + columnJ]) == 0 ? (rowJ, columnJ) : this.EmptyCellPosition; // Save the position of the empty cell for quick access
 		}
 	}

@@ -9,12 +9,9 @@ internal class BreadthFirstSearch : IPathFinding {
 	/// <summary>
 	/// Starts a BFS pathfinding algorithm
 	/// </summary>
-	public BreadthFirstSearch(List<string> combination) {
+	public BreadthFirstSearch() {
 
 	}
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="combination"></param>
-	public void Solve() => throw new NotImplementedException();
+
+	public (int, List<string>) Solve() => throw new NotImplementedException();
 }

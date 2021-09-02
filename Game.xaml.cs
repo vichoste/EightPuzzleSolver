@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
@@ -9,16 +10,6 @@ namespace EightPuzzleSolver;
 /// Game
 /// </summary>
 public partial class Game : Window {
-	#region Attributes
-	/// <summary>
-	/// This is the winning combination. Source: https://www.geeksforgeeks.org/check-instance-8-puzzle-solvable/
-	/// </summary>
-	private readonly int[][] WinningCombination = new int[][] {
-		new int[] {1, 2, 3},
-		new int[] {4, 5, 6},
-		new int[] {7, 8, 0}
-	};
-	#endregion
 	#region Constructors
 	/// <summary>
 	/// Initializes the window
@@ -34,41 +25,25 @@ public partial class Game : Window {
 	/// Moves the empty cell once the user presses an arrow key
 	/// </summary>
 	private void GameWindow_KeyDown(object sender, KeyEventArgs e) { // TODO Don't allow more than one key pressed
+		var direction = Direction.Up;
 		switch (e.Key) {
-			case Key.Up:
-				this.Play.Move(Direction.Up);
-				break;
 			case Key.Down:
-				this.Play.Move(Direction.Down);
+				direction = Direction.Down;
 				break;
 			case Key.Left:
-				this.Play.Move(Direction.Left);
+				direction = Direction.Left;
 				break;
 			case Key.Right:
-				this.Play.Move(Direction.Right);
+				direction = Direction.Right;
 				break;
 		}
-
+		// Move
+		((int, int) EmptyCellPosition, var Board) = Play.Move(this.Play.Board, direction, this.Play.EmptyCellPosition);
+		this.Play.EmptyCellPosition = EmptyCellPosition;
+		this.Play.Board = Board;
 		/* I won't waste time by remembering and looking for how the fuck to proper databinding, just bruteforce this, holy fucking shit */
 		this.DataContext = null;
 		this.DataContext = this.Play; // TODO This breaks the NEW board
 	}
-	#endregion
-	#region Methods
-	/// <summary>
-	/// Checks if the game is solved
-	/// I am lazy to implement a more efficient way of doing this. The arrays will be always 3x3 anyways.
-	/// </summary>
-	/// <returns>If true, the player has won</returns>
-	internal bool IsSolved() {
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (int.Parse(this.Play.Board.ElementAt(i * 3 + j)) != this.WinningCombination[i][j]) { // Assuming parse will always give an integer
-					return false; // One number mismatch and the game will be considered not solved.
-				}
-			}
-		}
-		return true;
-	} // TODO move this in another class
 	#endregion
 }
