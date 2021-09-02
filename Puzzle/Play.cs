@@ -52,6 +52,40 @@ internal class Play {
 	#endregion
 	#region Methods
 	/// <summary>
+	/// Checks if the board is solvable
+	/// Source: https://www.geeksforgeeks.org/check-instance-8-puzzle-solvable/
+	/// </summary>
+	/// <returns>True if it has solution</returns>
+	private bool IsSolvable() {
+		int result = 0;
+		for (int i = 0; i < 3; i++) {
+			for (int j = i + 1; j < 3; j++) {
+				if (int.Parse(this.Board[i * 3 + j]) > 0 && int.Parse(this.Board[i * 3 + j]) > int.Parse(this.Board[i * 3 + j])) { // Assuming they will always be integers
+					result++;
+				}
+			}
+		}
+		return result % 2 == 0;
+	}
+	/// <summary>
+	/// Randomizes the values within the board
+	/// Source: http://csharphelper.com/blog/2016/10/randomize-two-dimensional-arrays-in-c/
+	/// </summary>
+	private void Shuffle() {
+		Random random = new();
+		for (int i = 0; i < 8; i++) {
+			int j = random.Next(i, 9);
+			int rowI = i / 3;
+			int columnI = i % 3;
+			int rowJ = j / 3;
+			int columnJ = j % 3;
+			Swap(this.Board, rowI * 3 + columnI, rowJ * 3 + columnJ);
+			this.EmptyCellPosition = int.Parse(this.Board[rowI * 3 + columnI]) == 0 ? (rowI, columnI) : int.Parse(this.Board[rowJ * 3 + columnJ]) == 0 ? (rowJ, columnJ) : this.EmptyCellPosition; // Save the position of the empty cell for quick access
+		}
+	}
+	#endregion
+	#region Static methods
+	/// <summary>
 	/// Swaps two numbers within the board
 	/// </summary>
 	/// <param name="firstCell">First cell</param>
@@ -88,40 +122,6 @@ internal class Play {
 				return ((emptyCellPosition.Row, emptyCellPosition.Column + 1), @new);
 		}
 		return (emptyCellPosition, board);
-	}
-	#endregion
-	#region "Inspirations"
-	/// <summary>
-	/// Checks if the board is solvable
-	/// Source: https://www.geeksforgeeks.org/check-instance-8-puzzle-solvable/
-	/// </summary>
-	/// <returns>True if it has solution</returns>
-	private bool IsSolvable() {
-		int result = 0;
-		for (int i = 0; i < 3; i++) {
-			for (int j = i + 1; j < 3; j++) {
-				if (int.Parse(this.Board[i * 3 + j]) > 0 && int.Parse(this.Board[i * 3 + j]) > int.Parse(this.Board[i * 3 + j])) { // Assuming they will always be integers
-					result++;
-				}
-			}
-		}
-		return result % 2 == 0;
-	}
-	/// <summary>
-	/// Randomizes the values within the board
-	/// Source: http://csharphelper.com/blog/2016/10/randomize-two-dimensional-arrays-in-c/
-	/// </summary>
-	private void Shuffle() {
-		Random random = new();
-		for (int i = 0; i < 8; i++) {
-			int j = random.Next(i, 9);
-			int rowI = i / 3;
-			int columnI = i % 3;
-			int rowJ = j / 3;
-			int columnJ = j % 3;
-			Swap(this.Board, rowI * 3 + columnI, rowJ * 3 + columnJ);
-			this.EmptyCellPosition = int.Parse(this.Board[rowI * 3 + columnI]) == 0 ? (rowI, columnI) : int.Parse(this.Board[rowJ * 3 + columnJ]) == 0 ? (rowJ, columnJ) : this.EmptyCellPosition; // Save the position of the empty cell for quick access
-		}
 	}
 	#endregion
 }

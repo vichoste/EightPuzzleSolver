@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace EightPuzzleSolver.Structures;
 /// <summary>
@@ -13,7 +9,5 @@ internal class Edge {
 	public int ID {
 		get; private set;
 	}
-	public Edge(List<string> firstVertex, List<string> secondVertex) {
-		firstVertex.GetHashCode();
-	}
+	public Edge(List<string> firstVertex, List<string> secondVertex) => firstVertex.GetHashCode();
 }
