@@ -12,6 +12,7 @@ internal class BreadthFirstSearch : PathFinder {
 	/// </summary>
 	public BreadthFirstSearch(List<string> board, (int, int) emptyCellPosition) : base(board, emptyCellPosition) {
 		do {
+			var MoveFreedom = CheckMoveFreedom(emptyCellPosition);
 			
 		} while (this.SolutionPath.Peek() is Vertex vertex && vertex.UniqueId == Vertex.SolvedUniqueId);
 	}

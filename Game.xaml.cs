@@ -37,7 +37,7 @@ public partial class Game : Window {
 				break;
 		}
 		// Move
-		((int, int) emptyCellPosition, var board) = Play.Move(this.Play.Board, direction, this.Play.EmptyCellPosition);
+		(var emptyCellPosition, var board) = Play.Move(this.Play.Board, direction, this.Play.EmptyCellPosition);
 		this.Play.EmptyCellPosition = emptyCellPosition;
 		this.Play.Board = board;
 		this.Play.IsSolved = Play.CalculateUniqueId(this.Play.Board) == Vertex.SolvedUniqueId;

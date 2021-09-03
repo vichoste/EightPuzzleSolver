@@ -131,7 +131,7 @@ internal class Play {
 	/// <param name="direction">Direction of the movement</param>
 	/// <param name="emptyCellPosition">The position of the empty cell</param>
 	/// <returns>Tuple of new empty cell coordinates and the board with the new positions because of the movement operation. If the movement is invalid, return unchanged</returns>
-	public static ((int Row, int Column) EmptyCellPosition, List<string> Board) Move(List<string> board, Direction direction, (int Row, int Column) emptyCellPosition) {
+	public static ((int, int), List<string>) Move(List<string> board, Direction direction, (int Row, int Column) emptyCellPosition) {
 		if (direction == Direction.Up && emptyCellPosition.Row - 1 < 0 || direction == Direction.Down && emptyCellPosition.Row + 1 > 2 || direction == Direction.Left && emptyCellPosition.Column - 1 < 0 || direction == Direction.Right && emptyCellPosition.Column + 1 > 2) {
 			return (emptyCellPosition, board);
 		}

@@ -40,6 +40,11 @@ internal abstract class PathFinder {
 	}
 	#endregion
 	#region Methods
-
+	/// <summary>
+	/// Checks the current valid moves for the empty cell
+	/// </summary>
+	/// <param name="emptyCellPosition">Current position of the empty cell</param>
+	/// <returns>(Up, Down, Left, Right) tuple; each one can be true if that movement is valid</returns>
+	protected static (bool, bool, bool, bool) CheckMoveFreedom((int Row, int Column) emptyCellPosition) => (emptyCellPosition.Row > 0, emptyCellPosition.Row < 2, emptyCellPosition.Column > 0, emptyCellPosition.Column < 2);
 	#endregion
 }
