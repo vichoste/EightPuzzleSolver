@@ -13,6 +13,6 @@ internal class BreadthFirstSearch : PathFinder {
 	public BreadthFirstSearch(List<string> board, (int, int) emptyCellPosition) : base(board, emptyCellPosition) {
 		do {
 
-		} while (this.SolutionPath.Peek() is Vertex vertex && vertex.UniqueId == 1234567890);
+		} while (this.SolutionPath.Peek() is Vertex vertex && vertex.UniqueId == 87654321);
 	}
 }

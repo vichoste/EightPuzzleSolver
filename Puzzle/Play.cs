@@ -79,9 +79,9 @@ internal class Play {
 	/// <returns>True if it has solution</returns>
 	private bool IsSolvable() {
 		int result = 0;
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 3 - 1; i++) {
 			for (int j = i + 1; j < 3; j++) {
-				if (int.Parse(this.board[i * 3 + j]) > 0 && int.Parse(this.board[i * 3 + j]) > int.Parse(this.board[i * 3 + j])) { // Assuming they will always be integers
+				if (int.Parse(this.board[j * 3 + i]) > 0 && int.Parse(this.board[j * 3 + i]) > int.Parse(this.board[i * 3 + j])) { // Assuming they will always be integers
 					result++;
 				}
 			}

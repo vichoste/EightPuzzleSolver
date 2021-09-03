@@ -12,6 +12,7 @@
 			</MenuItem>
 		</Menu>
 		<StatusBar x:Name="GameStatus" DockPanel.Dock="Bottom" Panel.ZIndex="2">
+			<TextBlock>Solved:</TextBlock>
 			<TextBlock Text="{Binding IsSolved}"/>
 		</StatusBar>
 		<StackPanel x:Name="GamePanel" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#2C394B" Width="400" Height="400" Panel.ZIndex="1">
