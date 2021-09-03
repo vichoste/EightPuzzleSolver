@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Microsoft.VisualBasic;
-
 namespace EightPuzzleSolver.Puzzle;
 
 /// <summary>
@@ -46,7 +44,7 @@ internal class Play {
 			if (value.Row < 0 || value.Row > 2 || value.Column < 0 || value.Column > 2) {
 				throw new IndexOutOfRangeException($"Cell position ({value.Row}, {value.Column}) is out of range.");
 			}
-			emptyCellPosition = value;
+			this.emptyCellPosition = value;
 		}
 	}
 	#endregion

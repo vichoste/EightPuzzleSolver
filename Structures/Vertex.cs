@@ -18,8 +18,7 @@ internal class Vertex {
 		get; private set;
 	}
 	/// <summary>
-	/// Gets the hash code from the board state for comparison
-	/// Kudos to Thomas Hormazábal for giving me this idea. Source: https://www.youtube.com/watch?v=uJA0i90uCGE
+	/// The board state
 	/// </summary>
 	public List<string> State {
 		get => new(this.state);
@@ -36,6 +35,7 @@ internal class Vertex {
 	}
 	/// <summary>
 	/// This value means how closer this state is to the winning combination
+	/// Kudos to Thomas Hormazábal for giving me this idea. Source: https://www.youtube.com/watch?v=uJA0i90uCGE
 	/// </summary>
 	public int HeruisticValue {
 		get; private set;
