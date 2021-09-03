@@ -15,14 +15,16 @@ internal class Vertex {
 	/// </summary>
 	public List<string> State {
 		get => new(this.state);
-		private set;
+		private set {
+		}
 	}
 	/// <summary>
 	/// States associated with the vertex
 	/// </summary>
 	public List<Vertex> ConnectedVertices {
 		get => new(this.connectedVertices);
-		private set;
+		private set {
+		}
 	}
 	#endregion
 	#region Constructors
@@ -32,7 +34,7 @@ internal class Vertex {
 	/// <param name="state">Board state</param>
 	public Vertex(List<string> state) {
 		this.state = state;
-		this.connectedEdges = new();
+		this.connectedVertices = new();
 	}
 	#endregion
 	#region Methods

@@ -7,16 +7,25 @@ namespace EightPuzzleSolver.Structures;
 /// This is a helper structure for the pathfinding algorithms
 /// </summary>
 internal class Graph {
+	#region Attributes
+	private HashSet<Vertex> vertexes;
+	#endregion
+	#region Properties
 	/// <summary>
 	/// All vertexes inside the graph
 	/// </summary>
-	public HashSet<Vertex> Vertexes {
-		get; private set;
+	public List<Vertex> Vertexes {
+		get => new(this.vertexes);
+		private set {
+		}
 	}
+	#endregion
+	#region Constructors
 	/// <summary>
 	/// Creates a graph
 	/// </summary>
 	public Graph() {
-		this.Vertexes = new();
+		this.vertexes = new();
 	}
+	#endregion
 }
