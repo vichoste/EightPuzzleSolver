@@ -42,13 +42,19 @@ internal class Vertex {
 	/// <summary>
 	/// The position of the empty cell on the state
 	/// </summary>
-	public (int Row, int Col) Position {
+	public (int Row, int Column) Position {
 		get; private set;
 	}
 	/// <summary>
-	/// Marks the vertex as discovered
+	/// Depth of this vertex
 	/// </summary>
-	public bool IsDiscovered {
+	public int SearchDepth {
+		get; internal set;
+	}
+	/// <summary>
+	/// See if this vertex is visited
+	/// </summary>
+	public bool IsVisited {
 		get; internal set;
 	}
 	#endregion
