@@ -12,6 +12,8 @@
 			</MenuItem>
 		</Menu>
 		<StatusBar x:Name="GameStatus" DockPanel.Dock="Bottom" Panel.ZIndex="2">
+			<TextBlock>Solvable:</TextBlock>
+			<TextBlock Text="{Binding IsSolvable}"/>
 			<TextBlock>Solved:</TextBlock>
 			<TextBlock Text="{Binding IsSolved}"/>
 		</StatusBar>

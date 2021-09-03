@@ -30,12 +30,6 @@ internal class Play {
 		}
 	}
 	/// <summary>
-	/// Move counter
-	/// </summary>
-	public bool IsSolved {
-		get; internal set;
-	}
-	/// <summary>
 	/// Current position of the empty cell
 	/// </summary>
 	public (int Row, int Column) EmptyCellPosition {
@@ -45,6 +39,20 @@ internal class Play {
 				throw new IndexOutOfRangeException($"Cell position ({value.Row}, {value.Column}) is out of range.");
 			}
 			this.emptyCellPosition = value;
+		}
+	}
+	/// <summary>
+	/// Is the current board solved?
+	/// </summary>
+	public bool IsSolved {
+		get; internal set;
+	}
+	/// <summary>
+	/// Is the current board solvable?
+	/// </summary>
+	public bool IsSolvable {
+		get => this.CheckIfItsSolvable();
+		private set {
 		}
 	}
 	#endregion
@@ -68,7 +76,7 @@ internal class Play {
 		// Safely shuffle the board
 		do {
 			this.Shuffle();
-		} while (!this.IsSolvable());
+		} while (!this.CheckIfItsSolvable());
 	}
 	#endregion
 	#region Methods
@@ -77,7 +85,7 @@ internal class Play {
 	/// Source: https://www.geeksforgeeks.org/check-instance-8-puzzle-solvable/
 	/// </summary>
 	/// <returns>True if it has solution</returns>
-	private bool IsSolvable() {
+	private bool CheckIfItsSolvable() {
 		int result = 0;
 		for (int i = 0; i < 3 - 1; i++) {
 			for (int j = i + 1; j < 3; j++) {
