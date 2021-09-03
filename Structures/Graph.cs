@@ -28,12 +28,19 @@ internal class Graph {
 	#endregion
 	#region Methods
 	/// <summary>
-	/// Adds a vertex to the graph
+	/// Adds a vertex to the graph if it not exists
 	/// </summary>
-	/// <param name="vertex">Destination vertex</param>
-	public void Add(Vertex vertex) => this.vertices.Add(vertex);
-	public void AddEdge(Vertex firstVertex, Vertex secondVertex) {
-		// TODO this thing
+	/// <param name="vertex">Board state associated to the vertex</param>
+	public void Add(List<string> state) {
+		if (this.Vertices.Find(v => v.UniqueId == Vertex.CalculateUniqueId(state)) is Vertex @new) {
+			_ = this.vertices.Add(@new);
+		}
+	}
+	public void AddEdge(List<string> firstState, List<string> secondState) {
+		if (this.Vertices.Find(v => v.UniqueId == Vertex.CalculateUniqueId(firstState)) is Vertex firstVertex && this.Vertices.Find(v => v.UniqueId == Vertex.CalculateUniqueId(secondState)) is Vertex secondVertex) {
+			firstVertex.AddConnection(secondVertex);
+			secondVertex.AddConnection(firstVertex);
+		}
 	}
 	#endregion
 }
