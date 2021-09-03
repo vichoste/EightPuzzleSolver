@@ -8,14 +8,14 @@ namespace EightPuzzleSolver.Structures;
 /// </summary>
 internal class Graph {
 	#region Attributes
-	private HashSet<Vertex> vertexes;
+	private HashSet<Vertex> vertices;
 	#endregion
 	#region Properties
 	/// <summary>
 	/// All vertexes inside the graph
 	/// </summary>
-	public List<Vertex> Vertexes {
-		get => new(this.vertexes);
+	public List<Vertex> Vertices {
+		get => new(this.vertices);
 		private set {
 		}
 	}
@@ -24,8 +24,16 @@ internal class Graph {
 	/// <summary>
 	/// Creates a graph
 	/// </summary>
-	public Graph() {
-		this.vertexes = new();
+	public Graph() => this.vertices = new();
+	#endregion
+	#region Methods
+	/// <summary>
+	/// Adds a vertex to the graph
+	/// </summary>
+	/// <param name="vertex">Destination vertex</param>
+	public void Add(Vertex vertex) => this.vertices.Add(vertex);
+	public void AddEdge(Vertex firstVertex, Vertex secondVertex) {
+		// TODO this thing
 	}
 	#endregion
 }

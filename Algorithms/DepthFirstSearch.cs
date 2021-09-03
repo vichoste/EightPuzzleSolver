@@ -2,10 +2,10 @@
 /// <summary>
 /// DFS pathfinding algorithm
 /// </summary>
-internal class BreadthFirstSearch {
+internal class DepthFirstSearch {
 	/// <summary>
 	/// Starts a DFS pathfinding algorithm
 	/// </summary>
-	public BreadthFirstSearch() {
+	public DepthFirstSearch() {
 	}
 }
