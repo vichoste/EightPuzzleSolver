@@ -7,8 +7,8 @@
 		<Menu x:Name="GameMenu" DockPanel.Dock="Top" Panel.ZIndex="2">
 			<MenuItem x:Name="NewGame"  Header="New" ToolTip="Try another combination" TabIndex="1" Click="NewGame_Click" IsEnabled="False"/> <!-- TODO Enable when databinding is properly done -->
 			<MenuItem x:Name="SolveGame"  Header="Solve" ToolTip="Using this is technically cheating" TabIndex="2">
-				<MenuItem x:Name="SolveWithBFS" Header="BFS" ToolTip="Breadth First Search" TabIndex="3"/>
-				<MenuItem x:Name="SolveWithDFS" Header="DFS" ToolTip="Depth First Search" TabIndex="4"/>
+				<MenuItem x:Name="SolveWithBFS" Header="BFS" ToolTip="Breadth First Search" TabIndex="3" Click="SolveWithBFS_Click"/>
+				<MenuItem x:Name="SolveWithDFS" Header="DFS" ToolTip="Depth First Search" TabIndex="4" Click="SolveWithDFS_Click"/>
 			</MenuItem>
 		</Menu>
 		<StatusBar x:Name="GameStatus" DockPanel.Dock="Bottom" Panel.ZIndex="2">

@@ -45,5 +45,21 @@ public partial class Game : Window {
 		this.DataContext = null;
 		this.DataContext = this.Play; // TODO This breaks the NEW board
 	}
+	/// <summary>
+	/// Trigger BFS
+	/// </summary>
+	private void SolveWithBFS_Click(object sender, RoutedEventArgs e) {
+		if (!this.Play.IsSolved) {
+			// TODO Once BFS finished, finish this
+		}
+	}
+	/// <summary>
+	/// Trigger DFS
+	/// </summary>
+	private void SolveWithDFS_Click(object sender, RoutedEventArgs e) {
+		if (!this.Play.IsSolved) {
+			// TODO Once DFS finished, finish this
+		}
+	}
 	#endregion
 }
