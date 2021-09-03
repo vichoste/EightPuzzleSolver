@@ -11,6 +11,9 @@
 		<DebugType>embedded</DebugType>
 		<SignAssembly>False</SignAssembly>
 		<AssemblyName>8 Puzzle Solver</AssemblyName>
-		<Platforms>AnyCPU;x64</Platforms>
+		<Platforms>AnyCPU</Platforms>
 	</PropertyGroup>
+	<ItemGroup>
+	  <PackageReference Include="MSTest.TestFramework" Version="2.2.6" />
+	</ItemGroup>
 </Project>

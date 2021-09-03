@@ -31,7 +31,7 @@ internal class Graph {
 	/// <summary>
 	/// Adds a vertex to the graph if it not exists
 	/// </summary>
-	/// <param name="vertex">Board state associated to the vertex</param>
+	/// <param name="state">Board state associated to the vertex</param>
 	/// <param name="position">Position of the empty cell associated to the vertex</param>
 	public void Add(List<string> state, (int, int) position) {
 		if (this.Vertices.Find(v => v.UniqueId == Play.CalculateUniqueId(state)) is null) {
