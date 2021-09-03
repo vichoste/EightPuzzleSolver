@@ -2,6 +2,7 @@
 using System.Windows.Input;
 
 using EightPuzzleSolver.Puzzle;
+using EightPuzzleSolver.Structures;
 
 namespace EightPuzzleSolver;
 /// <summary>
@@ -39,7 +40,7 @@ public partial class Game : Window {
 		((int, int) emptyCellPosition, var board) = Play.Move(this.Play.Board, direction, this.Play.EmptyCellPosition);
 		this.Play.EmptyCellPosition = emptyCellPosition;
 		this.Play.Board = board;
-		this.Play.IsSolved = Play.CalculateUniqueId(this.Play.Board) == 87654321;
+		this.Play.IsSolved = Play.CalculateUniqueId(this.Play.Board) == Vertex.SolvedUniqueId;
 		/* I won't waste time by remembering and looking for how the fuck to proper databinding, just bruteforce this, holy fucking shit */
 		this.DataContext = null;
 		this.DataContext = this.Play; // TODO This breaks the NEW board

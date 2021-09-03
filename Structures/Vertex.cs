@@ -46,6 +46,12 @@ internal class Vertex {
 		get; private set;
 	}
 	#endregion
+	#region Static properties
+	/// <summary>
+	/// This exact Unique ID is for identifying the solved combination for a board
+	/// </summary>
+	public static int SolvedUniqueId = 87654321;
+	#endregion
 	#region Constructors
 	/// <summary>
 	/// Creates a board state in a vertex
