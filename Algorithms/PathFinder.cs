@@ -36,6 +36,7 @@ internal abstract class PathFinder {
 	public PathFinder(List<string> board, (int Row, int Column) emptyCellPosition) {
 		this.Graph = new();
 		this.Graph.Add(board, emptyCellPosition);
+		this.NodeCount++;
 		this.SolutionPath = new();
 	}
 	#endregion
