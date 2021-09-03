@@ -45,6 +45,12 @@ internal class Vertex {
 	public (int Row, int Col) Position {
 		get; private set;
 	}
+	/// <summary>
+	/// Marks the vertex as discovered
+	/// </summary>
+	public bool IsDiscovered {
+		get; internal set;
+	}
 	#endregion
 	#region Static properties
 	/// <summary>

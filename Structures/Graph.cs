@@ -33,9 +33,9 @@ internal class Graph {
 	/// </summary>
 	/// <param name="state">Board state associated to the vertex</param>
 	/// <param name="position">Position of the empty cell associated to the vertex</param>
-	public void Add(List<string> state, (int, int) position) {
-		if (this.Vertices.Find(v => v.UniqueId == Play.CalculateUniqueId(state)) is null) {
-			_ = this.vertices.Add(new Vertex(state, position));
+	public void Add(Vertex @new) {
+		if (this.Vertices.Find(v => v.UniqueId == @new.UniqueId) is null) {
+			_ = this.vertices.Add(@new);
 		}
 	}
 	/// <summary>
@@ -43,8 +43,8 @@ internal class Graph {
 	/// </summary>
 	/// <param name="firstState">State as the first vertex</param>
 	/// <param name="secondState">State as the second vertex</param>
-	public void AddEdge(List<string> firstState, List<string> secondState) {
-		if (this.Vertices.Find(v => v.UniqueId == Play.CalculateUniqueId(firstState)) is Vertex firstVertex && this.Vertices.Find(v => v.UniqueId == Play.CalculateUniqueId(secondState)) is Vertex secondVertex) {
+	public void AddEdge(Vertex firstState, Vertex secondState) {
+		if (this.Vertices.Find(v => v.UniqueId == firstState.UniqueId) is Vertex firstVertex && this.Vertices.Find(v => v.UniqueId == secondState.UniqueId) is Vertex secondVertex) {
 			firstVertex.AddConnection(secondVertex);
 			secondVertex.AddConnection(firstVertex);
 		}
