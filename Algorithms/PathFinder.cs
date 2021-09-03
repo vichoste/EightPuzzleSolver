@@ -7,6 +7,7 @@ namespace EightPuzzleSolver.Algorithms;
 /// Pathfinder 
 /// </summary>
 internal abstract class PathFinder {
+	#region Properties
 	/// <summary>
 	/// Graph used for pathfinding
 	/// </summary>
@@ -25,9 +26,20 @@ internal abstract class PathFinder {
 	public int NodeCount {
 		get; protected set;
 	}
+	#endregion
+	#region Constructors
+	/// <summary>
+	/// Abstract pathfinder
+	/// </summary>
+	/// <param name="board">Board to use</param>
+	/// <param name="emptyCellPosition">Empty cell position</param>
 	public PathFinder(List<string> board, (int Row, int Column) emptyCellPosition) {
 		this.Graph = new();
 		this.Graph.Add(board, emptyCellPosition);
 		this.SolutionPath = new();
 	}
+	#endregion
+	#region Methods
+
+	#endregion
 }
