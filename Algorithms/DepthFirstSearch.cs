@@ -7,5 +7,6 @@ internal class DepthFirstSearch {
 	/// Starts a DFS pathfinding algorithm
 	/// </summary>
 	public DepthFirstSearch() {
+		
 	}
 }

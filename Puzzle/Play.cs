@@ -17,7 +17,7 @@ internal class Play {
 	/// Board game
 	/// </summary>
 	public List<string> Board {
-		get => this.board;
+		get => new(this.board);
 		internal set {
 			if (value.Count != 9) {
 				throw new ArgumentException("Board needs 9 values");

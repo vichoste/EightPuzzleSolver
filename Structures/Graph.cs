@@ -30,11 +30,17 @@ internal class Graph {
 	/// Adds a vertex to the graph if it not exists
 	/// </summary>
 	/// <param name="vertex">Board state associated to the vertex</param>
-	public void Add(List<string> state) {
-		if (this.Vertices.Find(v => v.UniqueId == Vertex.CalculateUniqueId(state)) is Vertex @new) {
-			_ = this.vertices.Add(@new);
+	/// <param name="position">Position of the empty cell associated to the vertex</param>
+	public void Add(List<string> state, (int, int) position) {
+		if (this.Vertices.Find(v => v.UniqueId == Vertex.CalculateUniqueId(state)) is null) {
+			_ = this.vertices.Add(new Vertex(state, position));
 		}
 	}
+	/// <summary>
+	/// Adds an edge to the graph
+	/// </summary>
+	/// <param name="firstState">State as the first vertex</param>
+	/// <param name="secondState">State as the second vertex</param>
 	public void AddEdge(List<string> firstState, List<string> secondState) {
 		if (this.Vertices.Find(v => v.UniqueId == Vertex.CalculateUniqueId(firstState)) is Vertex firstVertex && this.Vertices.Find(v => v.UniqueId == Vertex.CalculateUniqueId(secondState)) is Vertex secondVertex) {
 			firstVertex.AddConnection(secondVertex);

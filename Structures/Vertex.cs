@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using EightPuzzleSolver.Puzzle;
+
 namespace EightPuzzleSolver.Structures;
 /// <summary>
 /// Joins two nodes which are board states
@@ -40,14 +42,21 @@ internal class Vertex {
 	public int HeruisticValue {
 		get; private set;
 	}
+	/// <summary>
+	/// The position of the empty cell on the state
+	/// </summary>
+	public (int Row, int Col) Position {
+		get; private set;
+	}
 	#endregion
 	#region Constructors
 	/// <summary>
 	/// Creates a board state in a vertex
 	/// </summary>
 	/// <param name="state">Board state</param>
-	public Vertex(List<string> state) {
+	public Vertex(List<string> state, (int, int) position) {
 		this.state = state;
+		this.Position = position;
 		this.connectedVertices = new();
 		// Get the heruistic value
 		for (int i = 0; i < 9; i++) {
