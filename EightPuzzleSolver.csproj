@@ -4,7 +4,7 @@
 		<TargetFramework>net6.0-windows10.0.20348.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<UseWPF>true</UseWPF>
-		<MinimumPlatformVersion>7.0</MinimumPlatformVersion>
+		<MinimumPlatformVersion>10.0.17763.0</MinimumPlatformVersion>
 		<StartupObject>EightPuzzleSolver.App</StartupObject>
 		<ApplicationIcon>C:\Users\vichoste\source\repos\EightPuzzleSolver\circuit.ico</ApplicationIcon>
 		<IsPublishable>False</IsPublishable>
