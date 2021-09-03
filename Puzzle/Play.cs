@@ -32,7 +32,7 @@ internal class Play {
 	/// <summary>
 	/// Move counter
 	/// </summary>
-	public long Moves {
+	public bool IsSolved {
 		get; internal set;
 	}
 	/// <summary>
@@ -143,6 +143,32 @@ internal class Play {
 				return ((emptyCellPosition.Row, emptyCellPosition.Column + 1), @new);
 		}
 		return (emptyCellPosition, board);
+	}
+	/// <summary>
+	/// Calculates an unique ID for a board.
+	/// </summary>
+	/// <param name="board">Board combination</param>
+	/// <returns>Unique ID for a board combination</returns>
+	public static int CalculateUniqueId(List<string> board) {
+		int result = 0;
+		/* How this works:
+		 * There are 9 positions. So, in order to generate an ID that represents the board combination, that is comparable to others, the following will be done:
+		 * ID = sum(
+		 * state[0] * 1
+		 * state[1] * 10
+		 * state[2] * 100
+		 * state[3] * 1000
+		 * state[4] * 10000
+		 * state[5] * 100000
+		 * state[6] * 1000000
+		 * state[7] * 10000000
+		 * state[8] * 100000000
+		 * state[9] * 1000000000)
+		 */
+		for (int i = 0; i < 9; i++) {
+			result += int.Parse(board[i]) * (int) Math.Pow(10, i); // Assuming both parsing and result are integers
+		}
+		return result;
 	}
 	#endregion
 }

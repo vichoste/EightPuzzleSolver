@@ -16,7 +16,7 @@ internal abstract class PathFinder {
 	/// <summary>
 	/// This is the path that leads from the initial state to the solution
 	/// </summary>
-	public List<Vertex>? SolutionPath {
+	public Stack<Vertex>? SolutionPath {
 		get; protected set;
 	}
 	/// <summary>
@@ -28,5 +28,6 @@ internal abstract class PathFinder {
 	public PathFinder(List<string> board, (int Row, int Column) emptyCellPosition) {
 		this.Graph = new();
 		this.Graph.Add(board, emptyCellPosition);
+		this.SolutionPath = new();
 	}
 }
