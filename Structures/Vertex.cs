@@ -19,6 +19,7 @@ internal class Vertex {
 	}
 	/// <summary>
 	/// Gets the hash code from the board state for comparison
+	/// Kudos to Thomas Hormazábal for giving me this idea. Source: https://www.youtube.com/watch?v=uJA0i90uCGE
 	/// </summary>
 	public List<string> State {
 		get => new(this.state);
@@ -33,6 +34,12 @@ internal class Vertex {
 		private set {
 		}
 	}
+	/// <summary>
+	/// This value means how closer this state is to the winning combination
+	/// </summary>
+	public int HeruisticValue {
+		get; private set;
+	}
 	#endregion
 	#region Constructors
 	/// <summary>
@@ -42,14 +49,23 @@ internal class Vertex {
 	public Vertex(List<string> state) {
 		this.state = state;
 		this.connectedVertices = new();
+		// Get the heruistic value
+		for (int i = 0; i < 9; i++) {
+			int currentValue = int.Parse(state[i]);
+			this.HeruisticValue = i < 8 && currentValue == i + 1 || i == 8 && currentValue == 0 ? this.HeruisticValue + 1 : this.HeruisticValue;
+		}
 	}
 	#endregion
 	#region Methods
 	/// <summary>
 	/// Adds a connection to the vertex
 	/// </summary>
-	/// <param name="vertex">Destination vertex</param>
-	public void AddConnection(Vertex @new) => this.connectedVertices.Add(@new);
+	/// <param name="vertex">Unique new vertex connection</param>
+	public void AddConnection(Vertex vertex) {
+		if (vertex.UniqueId != this.UniqueId && this.ConnectedVertices.Find(v => v.UniqueId == vertex.UniqueId) is Vertex @new) {
+			_ = this.connectedVertices.Add(@new);
+		}
+	}
 	#endregion
 	#region Static methods
 	/// <summary>
