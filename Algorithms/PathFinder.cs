@@ -10,14 +10,9 @@ namespace EightPuzzleSolver.Algorithms;
 internal abstract class PathFinder {
 	#region Attributes
 	protected IEnumerable<Vertex>? pendingVertices;
+	protected List<Vertex> visitedVertices;
 	#endregion
 	#region Properties
-	/// <summary>
-	/// This is the path that leads from the initial state to the solution
-	/// </summary>
-	public Stack<Vertex>? SolutionPath {
-		get; protected set;
-	}
 	/// <summary>
 	/// Counts how many nodes were used in the graph in the pathfinding process
 	/// </summary>
@@ -33,7 +28,7 @@ internal abstract class PathFinder {
 	/// <param name="emptyCellPosition">Empty cell position</param>
 	public PathFinder() {
 		this.NodeCount++;
-		this.SolutionPath = new();
+		this.visitedVertices = new();
 	}
 	#endregion
 	#region Methods
@@ -52,23 +47,31 @@ internal abstract class PathFinder {
 		List<Vertex> result = new();
 		if (vertex.Position.Row > 0) { // Check up
 			(var EmptyCellPosition, var Board) = Play.Move(vertex.State, Direction.Up, vertex.Position);
-			result.Add(new(Board, EmptyCellPosition));
-			this.NodeCount++;
+			if (Board is not null) {
+				result.Add(new(Board, EmptyCellPosition));
+				this.NodeCount++;
+			}
 		}
 		if (vertex.Position.Row < 2) { // Check down
 			(var EmptyCellPosition, var Board) = Play.Move(vertex.State, Direction.Down, vertex.Position);
-			result.Add(new(Board, EmptyCellPosition));
-			this.NodeCount++;
+			if (Board is not null) {
+				result.Add(new(Board, EmptyCellPosition));
+				this.NodeCount++;
+			}
 		}
 		if (vertex.Position.Column > 0) { // Check left
 			(var EmptyCellPosition, var Board) = Play.Move(vertex.State, Direction.Left, vertex.Position);
-			result.Add(new(Board, EmptyCellPosition));
-			this.NodeCount++;
+			if (Board is not null) {
+				result.Add(new(Board, EmptyCellPosition));
+				this.NodeCount++;
+			}
 		}
 		if (vertex.Position.Column < 2) { // Check right
 			(var EmptyCellPosition, var Board) = Play.Move(vertex.State, Direction.Right, vertex.Position);
-			result.Add(new(Board, EmptyCellPosition));
-			this.NodeCount++;
+			if (Board is not null) {
+				result.Add(new(Board, EmptyCellPosition));
+				this.NodeCount++;
+			}
 		}
 		return result;
 	}

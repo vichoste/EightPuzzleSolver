@@ -1,6 +1,9 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Input;
 
+using EightPuzzleSolver.Algorithms;
 using EightPuzzleSolver.Puzzle;
 using EightPuzzleSolver.Structures;
 
@@ -37,20 +40,23 @@ public partial class Game : Window {
 				break;
 		}
 		// Move
-		(var emptyCellPosition, var board) = Play.Move(this.Play.Board, direction, this.Play.EmptyCellPosition);
-		this.Play.EmptyCellPosition = emptyCellPosition;
-		this.Play.Board = board;
-		this.Play.IsSolved = Play.CalculateUniqueId(this.Play.Board) == Vertex.SolvedUniqueId;
-		/* I won't waste time by remembering and looking for how the fuck to proper databinding, just bruteforce this, holy fucking shit */
-		this.DataContext = null;
-		this.DataContext = this.Play; // TODO This breaks the NEW board
+		(var EmptyCellPosition, var Board) = Play.Move(this.Play.Board, direction, this.Play.EmptyCellPosition);
+		if (Board is not null) {
+			this.Play.EmptyCellPosition = EmptyCellPosition;
+			this.Play.Board = Board;
+			this.Play.IsSolved = Vertex.CalculateUniqueId(this.Play.Board) == Vertex.SolvedUniqueId;
+			/* I won't waste time by remembering and looking for how the fuck to proper databinding, just bruteforce this, holy fucking shit */
+			this.DataContext = null;
+			this.DataContext = this.Play; // TODO This breaks the NEW board
+		}
 	}
 	/// <summary>
 	/// Trigger BFS
 	/// </summary>
 	private void SolveWithBFS_Click(object sender, RoutedEventArgs e) {
 		if (!this.Play.IsSolved) {
-			// TODO Once BFS finished, finish this
+			BreadthFirstSearch bfs = new();
+			bfs.Solve(this.Play.Board, this.Play.EmptyCellPosition);
 		}
 	}
 	/// <summary>

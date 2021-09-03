@@ -18,11 +18,11 @@ internal class BreadthFirstSearch : PathFinder {
 	/// <param name="board">Root board</param>
 	/// <param name="emptyCellPosition">Root empty cell position</param>
 	public override void Solve(List<string> board, (int Row, int Column) emptyCellPosition) {
-		if (Play.CalculateUniqueId(board) != Vertex.SolvedUniqueId) {
+		if (Vertex.CalculateUniqueId(board) != Vertex.SolvedUniqueId) {
 			Queue<Vertex>? queue = this.pendingVertices as Queue<Vertex>;
 			Vertex root = new(board, emptyCellPosition);
 			queue.Enqueue(root);
-			root.IsVisited = true;
+			this.visitedVertices.Add(root);
 			while (queue.Count > 0) {
 				var current = queue.Dequeue();
 				if (current.UniqueId == Vertex.SolvedUniqueId) {
@@ -31,9 +31,9 @@ internal class BreadthFirstSearch : PathFinder {
 				var children = this.MakePossibleMovements(current);
 				for (int i = children.Count - 1; i >= 0; i--) {
 					var currentChild = children[i];
-					if (!currentChild.IsVisited) {
+					if (this.visitedVertices.Find(v => v.UniqueId == currentChild.UniqueId) is null) {
 						queue.Enqueue(currentChild);
-						currentChild.IsVisited = true;
+						this.visitedVertices.Add(currentChild);
 					}
 				}
 			}
