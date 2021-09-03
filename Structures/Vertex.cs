@@ -5,24 +5,41 @@ namespace EightPuzzleSolver.Structures;
 /// Joins two nodes which are board states
 /// </summary>
 internal class Vertex {
+	#region Attributes
+	private List<string> state;
+	private HashSet<Vertex> connectedVertices;
+	#endregion
+	#region Properties
 	/// <summary>
-	/// Board state
+	/// Gets the hash code from the board state for comparison
 	/// </summary>
 	public List<string> State {
-		get; private set;
+		get => new(this.state);
+		private set;
 	}
 	/// <summary>
 	/// States associated with the vertex
 	/// </summary>
-	public List<Vertex> Edges {
-		get; private set;
+	public List<Vertex> ConnectedVertices {
+		get => new(this.connectedVertices);
+		private set;
 	}
+	#endregion
+	#region Constructors
 	/// <summary>
 	/// Creates a board state in a vertex
 	/// </summary>
 	/// <param name="state">Board state</param>
 	public Vertex(List<string> state) {
-		this.State = state;
-		this.Edges = new();
+		this.state = state;
+		this.connectedEdges = new();
 	}
+	#endregion
+	#region Methods
+	/// <summary>
+	/// Adds a connection to the vertex
+	/// </summary>
+	/// <param name="vertex">Destination vertex</param>
+	public void AddConnection(Vertex vertex) => this.connectedVertices.Add(vertex);
+	#endregion
 }
