@@ -40,4 +40,7 @@ internal abstract class PathFinder {
 		this.SolutionPath = new();
 	}
 	#endregion
+	#region Methods
+	public abstract void Solve();
+	#endregion
 }

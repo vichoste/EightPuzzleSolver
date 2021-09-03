@@ -37,4 +37,6 @@ internal class BreadthFirstSearch : PathFinder {
 			} while (this.SolutionPath.Peek() is Vertex vertex && vertex.UniqueId == Vertex.SolvedUniqueId);
 		}
 	}
+
+	public override void Solve() => throw new System.NotImplementedException();
 }
