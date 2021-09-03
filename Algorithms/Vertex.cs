@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using EightPuzzleSolver.Puzzle;
-
 namespace EightPuzzleSolver.Structures;
 /// <summary>
 /// Joins two nodes which are board states

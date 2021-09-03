@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Input;
 
 using EightPuzzleSolver.Algorithms;
@@ -20,13 +18,9 @@ public partial class Game : Window {
 	#endregion
 	#region Event methods
 	/// <summary>
-	/// Starts a new game
-	/// </summary>
-	private void NewGame_Click(object sender, RoutedEventArgs e) => this.DataContext = new Play(); // Effective but it gives bugs
-	/// <summary>
 	/// Moves the empty cell once the user presses an arrow key
 	/// </summary>
-	private void GameWindow_KeyDown(object sender, KeyEventArgs e) { // TODO Don't allow more than one key pressed
+	private void GameWindow_KeyDown(object sender, KeyEventArgs e) {
 		var direction = Direction.Up;
 		switch (e.Key) {
 			case Key.Down:
@@ -47,24 +41,37 @@ public partial class Game : Window {
 			this.Play.IsSolved = Vertex.CalculateUniqueId(this.Play.Board) == Vertex.SolvedUniqueId;
 			/* I won't waste time by remembering and looking for how the fuck to proper databinding, just bruteforce this, holy fucking shit */
 			this.DataContext = null;
-			this.DataContext = this.Play; // TODO This breaks the NEW board
+			this.DataContext = this.Play;
 		}
 	}
 	/// <summary>
-	/// Trigger BFS
+	/// Trigger BFS (This will take forever)
 	/// </summary>
 	private void SolveWithBFS_Click(object sender, RoutedEventArgs e) {
 		if (!this.Play.IsSolved) {
 			BreadthFirstSearch bfs = new();
-			bfs.Solve(this.Play.Board, this.Play.EmptyCellPosition);
+			(var newPosition, var newBoard) = bfs.Solve(this.Play.Board, this.Play.EmptyCellPosition);
+			this.Play.EmptyCellPosition = newPosition;
+			this.Play.Board = newBoard;
+			this.Play.IsSolved = Vertex.CalculateUniqueId(this.Play.Board) == Vertex.SolvedUniqueId;
+			/* I won't waste time by remembering and looking for how the fuck to proper databinding, just bruteforce this, holy fucking shit */
+			this.DataContext = null;
+			this.DataContext = this.Play;
 		}
 	}
 	/// <summary>
-	/// Trigger DFS
+	/// Trigger DFS (This will take forever)
 	/// </summary>
 	private void SolveWithDFS_Click(object sender, RoutedEventArgs e) {
 		if (!this.Play.IsSolved) {
-			// TODO Once DFS finished, finish this
+			DepthFirstSearch dfs = new();
+			(var newPosition, var newBoard) = dfs.Solve(this.Play.Board, this.Play.EmptyCellPosition);
+			this.Play.EmptyCellPosition = newPosition;
+			this.Play.Board = newBoard;
+			this.Play.IsSolved = Vertex.CalculateUniqueId(this.Play.Board) == Vertex.SolvedUniqueId;
+			/* I won't waste time by remembering and looking for how the fuck to proper databinding, just bruteforce this, holy fucking shit */
+			this.DataContext = null;
+			this.DataContext = this.Play;
 		}
 	}
 	#endregion
