@@ -146,20 +146,22 @@ public class CellViewModel : INotifyPropertyChanged {
 		if (direction == Direction.Up && zeroX - 1 < 0 || direction == Direction.Down && zeroX + 1 > 2 || direction == Direction.Left && zeroY - 1 < 0 || direction == Direction.Right && zeroY + 1 > 2) {
 			return (null, 0, 0);
 		}
-		List<CellModel> manipulated = new(board);
-		switch (direction) {
-			case Direction.Up:
-				Swap(manipulated[zeroX * 3 + zeroY], manipulated[( zeroX - 1 ) * 3 + zeroY]);
-				return (manipulated, zeroX - 1, zeroY);
-			case Direction.Down:
-				Swap(manipulated[zeroX * 3 + zeroY], manipulated[( zeroX + 1 ) * 3 + zeroY]);
-				return (manipulated, zeroX + 1, zeroY);
-			case Direction.Left:
-				Swap(manipulated[zeroX * 3 + zeroY], manipulated[zeroX * 3 + zeroY - 1]);
-				return (manipulated, zeroX, zeroY - 1);
-			case Direction.Right:
-				Swap(manipulated[zeroX * 3 + zeroY], manipulated[zeroX * 3 + zeroY + 1]);
-				return (manipulated, zeroX, zeroY + 1);
+		if (board is not null) {
+			List<CellModel> manipulated = new(board);
+			switch (direction) {
+				case Direction.Up:
+					Swap(manipulated[zeroX * 3 + zeroY], manipulated[( zeroX - 1 ) * 3 + zeroY]);
+					return (manipulated, zeroX - 1, zeroY);
+				case Direction.Down:
+					Swap(manipulated[zeroX * 3 + zeroY], manipulated[( zeroX + 1 ) * 3 + zeroY]);
+					return (manipulated, zeroX + 1, zeroY);
+				case Direction.Left:
+					Swap(manipulated[zeroX * 3 + zeroY], manipulated[zeroX * 3 + zeroY - 1]);
+					return (manipulated, zeroX, zeroY - 1);
+				case Direction.Right:
+					Swap(manipulated[zeroX * 3 + zeroY], manipulated[zeroX * 3 + zeroY + 1]);
+					return (manipulated, zeroX, zeroY + 1);
+			}
 		}
 		return (null, 0, 0);
 	}

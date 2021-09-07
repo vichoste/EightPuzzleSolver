@@ -41,6 +41,8 @@ public class State {
 		this.Board = cellModel;
 		this.ZeroX = zeroX;
 		this.ZeroY = zeroY;
-		this.Combination = CellModel.CalculateCombination(cellModel);
+		if (cellModel is not null) {
+			this.Combination = CellModel.CalculateCombination(cellModel);
+		}
 	}
 }

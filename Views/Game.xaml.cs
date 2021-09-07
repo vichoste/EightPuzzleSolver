@@ -11,7 +11,7 @@ namespace EightPuzzleSolver;
 /// </summary>
 public partial class Game : Window {
 	#region Attributes
-	private bool IsBeingSolved;
+	private bool _IsBeingSolved;
 	#endregion
 	#region Constructors
 	/// <summary>
@@ -24,7 +24,7 @@ public partial class Game : Window {
 	/// Moves the empty cell once the user presses an arrow key
 	/// </summary>
 	private void GameWindow_KeyDown(object sender, KeyEventArgs e) {
-		if (!this.IsBeingSolved) {
+		if (!this._IsBeingSolved) {
 			CellViewModel? cellViewModel = (CellViewModel) this.DataContext;
 			if (!cellViewModel.IsSolved) {
 				this.DFS.IsEnabled = this.BFS.IsEnabled = false;
@@ -46,11 +46,7 @@ public partial class Game : Window {
 					cellViewModel.ZeroX = zeroX;
 					cellViewModel.ZeroY = zeroY;
 					cellViewModel.IsSolved = CellModel.CalculateCombination(board) == CellModel.SolvedCombination;
-					if (cellViewModel.IsSolved) {
-						this.DFS.IsEnabled = this.BFS.IsEnabled = false;
-					} else {
-						this.DFS.IsEnabled = this.BFS.IsEnabled = true;
-					}
+					this.DFS.IsEnabled = cellViewModel.IsSolved ? ( this.BFS.IsEnabled = false ) : ( this.BFS.IsEnabled = true );
 				}
 			}
 		}
@@ -59,7 +55,7 @@ public partial class Game : Window {
 	/// Trigger BFS (This will take forever)
 	/// </summary>
 	private async void SolveWithBFS_Click(object sender, RoutedEventArgs e) {
-		this.IsBeingSolved = true;
+		this._IsBeingSolved = true;
 		this.DFS.IsEnabled = this.BFS.IsEnabled = false;
 		CellViewModel? cellViewModel = (CellViewModel) this.DataContext;
 		if (!cellViewModel.IsSolved) {
@@ -67,13 +63,13 @@ public partial class Game : Window {
 			await pathFinder.Solve(cellViewModel);
 		}
 		this.DFS.IsEnabled = this.BFS.IsEnabled = true;
-		this.IsBeingSolved = false;
+		this._IsBeingSolved = false;
 	}
 	/// <summary>
 	/// Trigger DFS (This will take forever)
 	/// </summary>
 	private async void SolveWithDFS_Click(object sender, RoutedEventArgs e) {
-		this.IsBeingSolved = false;
+		this._IsBeingSolved = false;
 		this.DFS.IsEnabled = this.BFS.IsEnabled = false;
 		CellViewModel? cellViewModel = (CellViewModel) this.DataContext;
 		if (!cellViewModel.IsSolved) {
@@ -81,7 +77,7 @@ public partial class Game : Window {
 			await pathFinder.Solve(cellViewModel);
 		}
 		this.DFS.IsEnabled = this.BFS.IsEnabled = true;
-		this.IsBeingSolved = true;
+		this._IsBeingSolved = true;
 	}
 	#endregion
 }

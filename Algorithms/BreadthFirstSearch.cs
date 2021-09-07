@@ -27,6 +27,9 @@ internal class BreadthFirstSearch : PathFinder {
 			if (current.Board is List<CellModel> list) {
 				_ = await Task.Run(() => cellViewModel.Board = current.Board);
 			}
+			if (current.Combination == CellModel.SolvedCombination) {
+				break;
+			}
 			var children = MakePossibleMovements(current);
 			for (int i = children.Count - 1; i >= 0; i--) {
 				var currentChild = children[i];
