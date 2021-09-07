@@ -42,7 +42,7 @@ public class CellModel {
 	/// </summary>
 	/// <param name="board">Board</param>
 	/// <returns>Board combination number</returns>
-	public static int CalculateCombination(List<string> board) {
+	public static int CalculateCombination(List<CellModel> board) {
 		int combination = 0;
 		/* How this works:
 		 * There are 9 positions. So, in order to generate an ID that represents the board combination, that is comparable to others, the following will be done:
@@ -59,7 +59,7 @@ public class CellModel {
 		 * state[9] * 1000000000)
 		 */
 		for (int i = 0; i < 9; i++) {
-			combination += int.Parse(board[i]) * (int) Math.Pow(10, i); // Assuming both parsing and combination are integers
+			combination += board[i].Value * (int) Math.Pow(10, i); // Assuming both parsing and combination are integers
 		}
 		return combination;
 	}

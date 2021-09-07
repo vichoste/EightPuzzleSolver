@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 
 using EightPuzzleSolver.Models;
@@ -8,10 +9,7 @@ namespace EightPuzzleSolver.ViewModels;
 /// <summary>
 /// This is the cell's view model
 /// </summary>
-public class CellViewModel {
-	#region Attributes
-	private CellModel[] _Board;
-	#endregion
+public class CellViewModel : INotifyPropertyChanged {
 	#region Attributes
 	/// <summary>
 	/// Row coordinate of the zero cell
@@ -28,7 +26,9 @@ public class CellViewModel {
 	/// <summary>
 	/// Gets the board
 	/// </summary>
-	public List<CellModel> Board => new(this._Board);
+	public List<CellModel> Board {
+		get; set;
+	}
 	/// <summary>
 	/// Checks if the board is solved
 	/// </summary>
@@ -43,7 +43,7 @@ public class CellViewModel {
 			int result = 0;
 			for (int i = 0; i < 3 - 1; i++) {
 				for (int j = i + 1; j < 3; j++) {
-					if (this._Board[j * 3 + i].Value > 0 && this._Board[j * 3 + i].Value > this._Board[i * 3 + j].Value) {
+					if (this.Board[j * 3 + i].Value > 0 && this.Board[j * 3 + i].Value > this.Board[i * 3 + j].Value) {
 						result++;
 					}
 				}
@@ -57,7 +57,7 @@ public class CellViewModel {
 	/// Creates the cell view model
 	/// </summary>
 	public CellViewModel() {
-		this._Board = new CellModel[]{
+		this.Board = new List<CellModel> {
 			new() {
 				Value = 0
 			},
@@ -92,6 +92,24 @@ public class CellViewModel {
 		} while (!this.IsSolvable);
 	}
 	#endregion
+	#region Indexers
+	/// <summary>
+	/// Gets or sets a value inside the cell
+	/// </summary>
+	/// <param name="row">Row index</param>
+	/// <param name="column">Column index</param>
+	/// <returns>Value at the position</returns>
+	public CellModel this[int row, int column] {
+		get {
+			this.OnPropertyChanged("Board");
+			return this.Board[row * 3 + column];
+		}
+		set {
+			this.Board[row * 3 + column] = value;
+			this.OnPropertyChanged("Board");
+		}
+	}
+	#endregion
 	#region Methods
 	/// <summary>
 	/// Randomizes the values within the board
@@ -105,10 +123,11 @@ public class CellViewModel {
 			int columnI = i % 3;
 			int rowJ = j / 3;
 			int columnJ = j % 3;
-			Swap(this._Board[rowI * 3 + columnI], this._Board[rowJ * 3 + columnJ]);
-			this.ZeroX = this._Board[rowI * 3 + columnI].Value == 0 ? rowI : this._Board[rowJ * 3 + columnJ].Value == 0 ? rowJ : this.ZeroX;
-			this.ZeroY = this._Board[rowI * 3 + columnI].Value == 0 ? columnI : this._Board[rowJ * 3 + columnJ].Value == 0 ? columnJ : this.ZeroX;
+			Swap(this.Board[rowI * 3 + columnI], this.Board[rowJ * 3 + columnJ]);
+			this.ZeroX = this.Board[rowI * 3 + columnI].Value == 0 ? rowI : this.Board[rowJ * 3 + columnJ].Value == 0 ? rowJ : this.ZeroX;
+			this.ZeroY = this.Board[rowI * 3 + columnI].Value == 0 ? columnI : this.Board[rowJ * 3 + columnJ].Value == 0 ? columnJ : this.ZeroX;
 		}
+		this.OnPropertyChanged("Board");
 	}
 	#endregion
 	#region Static methods
@@ -125,29 +144,42 @@ public class CellViewModel {
 	/// <summary>
 	/// Moves the empty cell
 	/// </summary>
-	/// <param name="board">Board which we want to move the cell</param>
+	/// <param name="board">Board to manipulate</param>
 	/// <param name="direction">Direction of the movement</param>
+	/// <param name="zeroX">Row zero cell position</param>
+	/// <param name="zeroY">Row column cell position</param>
 	/// <returns>Tuple of new empty cell coordinates and the board with the new positions because of the movement operation. If the movement is invalid, return unchanged</returns>
-	public List<CellModel>? MoveZeroCell(Direction direction) {
-		if (direction == Direction.Up && this.ZeroX - 1 < 0 || direction == Direction.Down && this.ZeroX + 1 > 2 || direction == Direction.Left && this.ZeroY - 1 < 0 || direction == Direction.Right && this.ZeroY + 1 > 2) {
+	public static List<CellModel>? MoveZeroCell(List<CellModel> board, Direction direction, int zeroX, int zeroY) {
+		if (direction == Direction.Up && zeroX - 1 < 0 || direction == Direction.Down && zeroX + 1 > 2 || direction == Direction.Left && zeroY - 1 < 0 || direction == Direction.Right && zeroY + 1 > 2) {
 			return null;
 		}
-		List<CellModel>? @new = this._Board.ToList();
+		List<CellModel> manipulated = new(board);
 		switch (direction) {
 			case Direction.Up:
-				Swap(@new[this.ZeroX * 3 + this.ZeroY], @new[(this.ZeroX - 1 ) * 3 + this.ZeroY]);
-				return @new;
+				Swap(manipulated[zeroX * 3 + zeroY], manipulated[( zeroX - 1 ) * 3 + zeroY]);
+				return manipulated;
 			case Direction.Down:
-				Swap(@new[this.ZeroX * 3 + this.ZeroY], @new[( this.ZeroX + 1 ) * 3 + this.ZeroY]);
-				return @new;
+				Swap(manipulated[zeroX * 3 + zeroY], manipulated[( zeroX + 1 ) * 3 + zeroY]);
+				return manipulated;
 			case Direction.Left:
-				Swap(@new[this.ZeroX * 3 + this.ZeroY], @new[this.ZeroX * 3 + this.ZeroY - 1]);
-				return @new;
+				Swap(manipulated[zeroX * 3 + zeroY], manipulated[zeroX * 3 + zeroY - 1]);
+				return manipulated;
 			case Direction.Right:
-				Swap(@new[this.ZeroX * 3 + this.ZeroY], @new[this.ZeroX * 3 + this.ZeroY + 1]);
-				return @new;
+				Swap(manipulated[zeroX * 3 + zeroY], manipulated[zeroX * 3 + zeroY + 1]);
+				return manipulated;
 		}
 		return null;
 	}
+	#endregion
+	#region Events
+	/// <summary>
+	/// Property changed event handler
+	/// </summary>
+	public event PropertyChangedEventHandler? PropertyChanged;
+	/// <summary>
+	/// When property changes, call this function
+	/// </summary>
+	/// <param name="value">Property name</param>
+	public void OnPropertyChanged(string value) => this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(value));
 	#endregion
 }

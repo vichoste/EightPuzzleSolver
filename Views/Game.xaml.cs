@@ -1,9 +1,11 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Input;
 
 using EightPuzzleSolver.Algorithms;
-using EightPuzzleSolver.Puzzle;
-using EightPuzzleSolver.Structures;
+using EightPuzzleSolver.Models;
+using EightPuzzleSolver.ViewModels;
 
 namespace EightPuzzleSolver;
 /// <summary>
@@ -33,24 +35,20 @@ public partial class Game : Window {
 				direction = Direction.Right;
 				break;
 		}
-		// Move
-		(var EmptyCellPosition, var Board) = Play.Move(this.Play.Board, direction, this.Play.EmptyCellPosition);
-		if (Board is not null) {
-			this.Play.EmptyCellPosition = EmptyCellPosition;
-			this.Play.Board = Board;
-			this.Play.IsSolved = Vertex.CalculateUniqueId(this.Play.Board) == Vertex.SolvedUniqueId;
-			/* I won't waste time by remembering and looking for how the fuck to proper databinding, just bruteforce this, holy fucking shit */
-			this.DataContext = null;
-			this.DataContext = this.Play;
+		CellViewModel? cellViewModel = (CellViewModel) this.DataContext;
+		if (cellViewModel.MoveZeroCell(direction) is List<CellModel> @new) {
+			cellViewModel.Board = @new;
+			cellViewModel.IsSolved = CellModel.CalculateCombination(@new) == CellModel.SolvedCombination;
 		}
 	}
 	/// <summary>
 	/// Trigger BFS (This will take forever)
 	/// </summary>
 	private void SolveWithBFS_Click(object sender, RoutedEventArgs e) {
-		if (!this.Play.IsSolved) {
+		CellViewModel? cellViewModel = (CellViewModel) this.DataContext;
+		if (!cellViewModel.IsSolved) {
 			BreadthFirstSearch bfs = new();
-			(var newPosition, var newBoard) = bfs.Solve(this.Play.Board, this.Play.EmptyCellPosition);
+			var solved = bfs.Solve(cellViewModel);
 			this.Play.EmptyCellPosition = newPosition;
 			this.Play.Board = newBoard;
 			this.Play.IsSolved = Vertex.CalculateUniqueId(this.Play.Board) == Vertex.SolvedUniqueId;

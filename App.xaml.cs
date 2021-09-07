@@ -2,7 +2,7 @@
 
 namespace EightPuzzleSolver;
 /// <summary>
-/// Interaction logic for App.xaml
+/// Application
 /// </summary>
 public partial class App : Application {
 }
