@@ -11,6 +11,7 @@ namespace EightPuzzleSolver.ViewModels;
 public class CellViewModel : INotifyPropertyChanged {
 	#region Attributes
 	private List<CellModel>? _Board;
+	private bool _IsSolved;
 	#endregion
 	#region Properties
 	/// <summary>
@@ -36,10 +37,14 @@ public class CellViewModel : INotifyPropertyChanged {
 		}
 	}
 	/// <summary>
-	/// Checks if the board is solved
+	/// Gets the board
 	/// </summary>
 	public bool IsSolved {
-		get; set;
+		get => this._IsSolved;
+		set {
+			this._IsSolved = value;
+			this.OnPropertyChanged("IsSolved");
+		}
 	}
 	/// <summary>
 	/// Checks if the board is solvable
