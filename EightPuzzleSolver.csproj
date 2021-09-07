@@ -12,5 +12,6 @@
 		<SignAssembly>False</SignAssembly>
 		<AssemblyName>8 Puzzle Solver</AssemblyName>
 		<Platforms>AnyCPU</Platforms>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	</PropertyGroup>
 </Project>

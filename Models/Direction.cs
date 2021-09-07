@@ -1,7 +1,7 @@
-﻿namespace EightPuzzleSolver.Puzzle;
+﻿namespace EightPuzzleSolver.Models;
 /// <summary>
 /// Direction which the empty cell must move
 /// </summary>
-internal enum Direction {
+public enum Direction {
 	Up, Down, Left, Right
 }
