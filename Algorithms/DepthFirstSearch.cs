@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-using EightPuzzleSolver.Structures;
+using EightPuzzleSolver.Models;
 
 namespace EightPuzzleSolver.Algorithms;
 /// <summary>
@@ -10,14 +10,14 @@ internal class DepthFirstSearch : PathFinder {
 	/// <summary>
 	/// Starts a DFS pathfinding algorithm
 	/// </summary>
-	public DepthFirstSearch() : base() => this.pendingVertices = new Stack<Vertex>();
+	public DepthFirstSearch() : base() => this.pendingVertices = new Stack<State>();
 	/// <summary>
-	/// Solves the board via Depth First Search
+	/// Solves the board with DFS
 	/// </summary>
 	/// <param name="board">Root board</param>
-	/// <param name="emptyCellPosition">Root empty cell position</param>
-	/// /// <returns>Solved board. If a solved board is passed, it will return that instead</returns>
-	public override ((int, int), List<string>) Solve(List<string> board, (int Row, int Column) emptyCellPosition) {
+	/// <param name="zeroX">Root zero cell row position</param>
+	/// <param name="zeroY">Root zero cell column position</param>
+	public override (List<CellModel>, int, int) Solve(List<CellModel> board, int zeroX, int zeroY) {
 		if (Vertex.CalculateUniqueId(board) != Vertex.SolvedUniqueId) {
 			Stack<Vertex>? stack = this.pendingVertices as Stack<Vertex>;
 			Vertex root = new(board, emptyCellPosition);

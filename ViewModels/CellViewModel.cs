@@ -149,26 +149,26 @@ public class CellViewModel : INotifyPropertyChanged {
 	/// <param name="zeroX">Row zero cell position</param>
 	/// <param name="zeroY">Row column cell position</param>
 	/// <returns>Tuple of new empty cell coordinates and the board with the new positions because of the movement operation. If the movement is invalid, return unchanged</returns>
-	public static List<CellModel>? MoveZeroCell(List<CellModel> board, Direction direction, int zeroX, int zeroY) {
+	public static (List<CellModel>?, int, int) MoveZeroCell(List<CellModel> board, int zeroX, int zeroY, Direction direction) {
 		if (direction == Direction.Up && zeroX - 1 < 0 || direction == Direction.Down && zeroX + 1 > 2 || direction == Direction.Left && zeroY - 1 < 0 || direction == Direction.Right && zeroY + 1 > 2) {
-			return null;
+			return (null, 0, 0);
 		}
 		List<CellModel> manipulated = new(board);
 		switch (direction) {
 			case Direction.Up:
 				Swap(manipulated[zeroX * 3 + zeroY], manipulated[( zeroX - 1 ) * 3 + zeroY]);
-				return manipulated;
+				return (manipulated, ( zeroX - 1 ) * 3, zeroY);
 			case Direction.Down:
 				Swap(manipulated[zeroX * 3 + zeroY], manipulated[( zeroX + 1 ) * 3 + zeroY]);
-				return manipulated;
+				return (manipulated, ( zeroX + 1 ) * 3, zeroY);
 			case Direction.Left:
 				Swap(manipulated[zeroX * 3 + zeroY], manipulated[zeroX * 3 + zeroY - 1]);
-				return manipulated;
+				return (manipulated, zeroX * 3, zeroY - 1);
 			case Direction.Right:
 				Swap(manipulated[zeroX * 3 + zeroY], manipulated[zeroX * 3 + zeroY + 1]);
-				return manipulated;
+				return (manipulated, zeroX * 3, zeroY + 1);
 		}
-		return null;
+		return (null, 0, 0);
 	}
 	#endregion
 	#region Events

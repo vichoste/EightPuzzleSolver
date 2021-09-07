@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 
 using EightPuzzleSolver.Models;
-using EightPuzzleSolver.Structures;
 using EightPuzzleSolver.ViewModels;
 
 namespace EightPuzzleSolver.Algorithms;
@@ -14,12 +13,12 @@ internal class BreadthFirstSearch : PathFinder {
 	/// </summary>
 	public BreadthFirstSearch() : base() => this.pendingVertices = new Queue<CellModel>();
 	/// <summary>
-	/// Solves the board via Breadth First Search
+	/// Solves the board with BFS
 	/// </summary>
 	/// <param name="board">Root board</param>
-	/// <param name="emptyCellPosition">Root empty cell position</param>
-	/// /// <returns>Solved board with empty cell position. If a solved board is passed, it will return that instead</returns>
-	public override List<CellModel> Solve(CellViewModel cellViewModel) {
+	/// <param name="zeroX">Root zero cell row position</param>
+	/// <param name="zeroY">Root zero cell column position</param>
+	public override (List<CellModel>, int, int) Solve(List<CellModel> board, int zeroX, int zeroY) {
 		Queue<CellModel>? queue = this.pendingVertices as Queue<CellModel>;
 		CellModel root = new(board, emptyCellPosition);
 		queue.Enqueue(root);

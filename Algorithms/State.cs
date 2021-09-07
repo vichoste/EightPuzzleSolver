@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 
 using EightPuzzleSolver.Models;
-using EightPuzzleSolver.ViewModels;
 
 namespace EightPuzzleSolver.Algorithms;
 /// <summary>
@@ -11,7 +10,7 @@ public class State {
 	/// <summary>
 	/// Cell combination
 	/// </summary>
-	public List<CellModel> CellModel {
+	public List<CellModel> Board {
 		get; private set;
 	}
 	/// <summary>
@@ -32,7 +31,7 @@ public class State {
 	/// <param name="cellModel">Cell combination</param>
 	/// <param name="zeroX">Row coordinate of the zero cell</param>
 	/// <param name="zeroY">Column coordinate of the zero cell</param>
-	public State(CellModel cellModel, int zeroX, int zeroY) {
+	public State(List<CellModel> cellModel, int zeroX, int zeroY) {
 		this.CellModel = cellModel;
 		this.ZeroX = zeroX;
 		this.ZeroY = zeroY;

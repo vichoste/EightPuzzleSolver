@@ -36,9 +36,12 @@ public partial class Game : Window {
 				break;
 		}
 		CellViewModel? cellViewModel = (CellViewModel) this.DataContext;
-		if (cellViewModel.MoveZeroCell(direction) is List<CellModel> @new) {
-			cellViewModel.Board = @new;
-			cellViewModel.IsSolved = CellModel.CalculateCombination(@new) == CellModel.SolvedCombination;
+		(var board, int zeroX, int zeroY) = CellViewModel.MoveZeroCell(cellViewModel.Board, cellViewModel.ZeroX, cellViewModel.ZeroY, direction);
+		if (board is not null) {
+			cellViewModel.Board = board;
+			cellViewModel.ZeroX = zeroX;
+			cellViewModel.ZeroY = zeroY;
+			cellViewModel.IsSolved = CellModel.CalculateCombination(board) == CellModel.SolvedCombination;
 		}
 	}
 	/// <summary>
@@ -47,29 +50,26 @@ public partial class Game : Window {
 	private void SolveWithBFS_Click(object sender, RoutedEventArgs e) {
 		CellViewModel? cellViewModel = (CellViewModel) this.DataContext;
 		if (!cellViewModel.IsSolved) {
-			BreadthFirstSearch bfs = new();
-			var solved = bfs.Solve(cellViewModel);
-			this.Play.EmptyCellPosition = newPosition;
-			this.Play.Board = newBoard;
-			this.Play.IsSolved = Vertex.CalculateUniqueId(this.Play.Board) == Vertex.SolvedUniqueId;
-			/* I won't waste time by remembering and looking for how the fuck to proper databinding, just bruteforce this, holy fucking shit */
-			this.DataContext = null;
-			this.DataContext = this.Play;
+			PathFinder pathFinder = new BreadthFirstSearch();
+			(var board, int zeroX, int zeroY) = pathFinder.Solve(cellViewModel.Board, cellViewModel.ZeroX, cellViewModel.ZeroY, direction);
+			cellViewModel.Board = board;
+			cellViewModel.ZeroX = zeroX;
+			cellViewModel.ZeroY = zeroY;
+			cellViewModel.IsSolved = CellModel.CalculateCombination(board) == CellModel.SolvedCombination;
 		}
 	}
 	/// <summary>
 	/// Trigger DFS (This will take forever)
 	/// </summary>
 	private void SolveWithDFS_Click(object sender, RoutedEventArgs e) {
-		if (!this.Play.IsSolved) {
-			DepthFirstSearch dfs = new();
-			(var newPosition, var newBoard) = dfs.Solve(this.Play.Board, this.Play.EmptyCellPosition);
-			this.Play.EmptyCellPosition = newPosition;
-			this.Play.Board = newBoard;
-			this.Play.IsSolved = Vertex.CalculateUniqueId(this.Play.Board) == Vertex.SolvedUniqueId;
-			/* I won't waste time by remembering and looking for how the fuck to proper databinding, just bruteforce this, holy fucking shit */
-			this.DataContext = null;
-			this.DataContext = this.Play;
+		CellViewModel? cellViewModel = (CellViewModel) this.DataContext;
+		if (!cellViewModel.IsSolved) {
+			PathFinder pathFinder = new DepthFirstSearch();
+			(var board, int zeroX, int zeroY) = pathFinder.Solve(cellViewModel.Board, cellViewModel.ZeroX, cellViewModel.ZeroY, direction);
+			cellViewModel.Board = board;
+			cellViewModel.ZeroX = zeroX;
+			cellViewModel.ZeroY = zeroY;
+			cellViewModel.IsSolved = CellModel.CalculateCombination(board) == CellModel.SolvedCombination;
 		}
 	}
 	#endregion
