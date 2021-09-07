@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 
 using EightPuzzleSolver.Models;
 
@@ -125,7 +124,7 @@ public class CellViewModel : INotifyPropertyChanged {
 			int columnJ = j % 3;
 			Swap(this.Board[rowI * 3 + columnI], this.Board[rowJ * 3 + columnJ]);
 			this.ZeroX = this.Board[rowI * 3 + columnI].Value == 0 ? rowI : this.Board[rowJ * 3 + columnJ].Value == 0 ? rowJ : this.ZeroX;
-			this.ZeroY = this.Board[rowI * 3 + columnI].Value == 0 ? columnI : this.Board[rowJ * 3 + columnJ].Value == 0 ? columnJ : this.ZeroX;
+			this.ZeroY = this.Board[rowI * 3 + columnI].Value == 0 ? columnI : this.Board[rowJ * 3 + columnJ].Value == 0 ? columnJ : this.ZeroY;
 		}
 		this.OnPropertyChanged("Board");
 	}
@@ -157,16 +156,16 @@ public class CellViewModel : INotifyPropertyChanged {
 		switch (direction) {
 			case Direction.Up:
 				Swap(manipulated[zeroX * 3 + zeroY], manipulated[( zeroX - 1 ) * 3 + zeroY]);
-				return (manipulated, ( zeroX - 1 ) * 3, zeroY);
+				return (manipulated, zeroX - 1, zeroY);
 			case Direction.Down:
 				Swap(manipulated[zeroX * 3 + zeroY], manipulated[( zeroX + 1 ) * 3 + zeroY]);
-				return (manipulated, ( zeroX + 1 ) * 3, zeroY);
+				return (manipulated, zeroX + 1, zeroY);
 			case Direction.Left:
 				Swap(manipulated[zeroX * 3 + zeroY], manipulated[zeroX * 3 + zeroY - 1]);
-				return (manipulated, zeroX * 3, zeroY - 1);
+				return (manipulated, zeroX, zeroY - 1);
 			case Direction.Right:
 				Swap(manipulated[zeroX * 3 + zeroY], manipulated[zeroX * 3 + zeroY + 1]);
-				return (manipulated, zeroX * 3, zeroY + 1);
+				return (manipulated, zeroX, zeroY + 1);
 		}
 		return (null, 0, 0);
 	}

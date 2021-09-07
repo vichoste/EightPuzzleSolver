@@ -8,9 +8,15 @@ namespace EightPuzzleSolver.Algorithms;
 /// </summary>
 public class State {
 	/// <summary>
-	/// Cell combination
+	/// Board combination
 	/// </summary>
-	public List<CellModel> Board {
+	public int Combination {
+		get; private set;
+	}
+	/// <summary>
+	/// Board
+	/// </summary>
+	public List<CellModel>? Board {
 		get; private set;
 	}
 	/// <summary>
@@ -32,8 +38,9 @@ public class State {
 	/// <param name="zeroX">Row coordinate of the zero cell</param>
 	/// <param name="zeroY">Column coordinate of the zero cell</param>
 	public State(List<CellModel> cellModel, int zeroX, int zeroY) {
-		this.CellModel = cellModel;
+		this.Board = cellModel;
 		this.ZeroX = zeroX;
 		this.ZeroY = zeroY;
+		this.Combination = CellModel.CalculateCombination(cellModel);
 	}
 }

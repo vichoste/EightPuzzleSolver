@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EightPuzzleSolver.Models;
 /// <summary>
@@ -27,7 +24,7 @@ public class CellModel {
 	/// <summary>
 	/// Solved combination
 	/// </summary>
-	public readonly static int SolvedCombination = 87654321;
+	public static readonly int SolvedCombination = 87654321;
 	#endregion
 	#region Constructors
 	/// <summary>

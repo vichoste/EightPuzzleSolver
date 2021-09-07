@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Input;
 
 using EightPuzzleSolver.Algorithms;
@@ -43,6 +41,8 @@ public partial class Game : Window {
 			cellViewModel.ZeroY = zeroY;
 			cellViewModel.IsSolved = CellModel.CalculateCombination(board) == CellModel.SolvedCombination;
 		}
+		this.DataContext = null;
+		this.DataContext = this.Cell;
 	}
 	/// <summary>
 	/// Trigger BFS (This will take forever)
@@ -51,11 +51,7 @@ public partial class Game : Window {
 		CellViewModel? cellViewModel = (CellViewModel) this.DataContext;
 		if (!cellViewModel.IsSolved) {
 			PathFinder pathFinder = new BreadthFirstSearch();
-			(var board, int zeroX, int zeroY) = pathFinder.Solve(cellViewModel.Board, cellViewModel.ZeroX, cellViewModel.ZeroY, direction);
-			cellViewModel.Board = board;
-			cellViewModel.ZeroX = zeroX;
-			cellViewModel.ZeroY = zeroY;
-			cellViewModel.IsSolved = CellModel.CalculateCombination(board) == CellModel.SolvedCombination;
+			pathFinder.Solve(cellViewModel);
 		}
 	}
 	/// <summary>
@@ -65,11 +61,7 @@ public partial class Game : Window {
 		CellViewModel? cellViewModel = (CellViewModel) this.DataContext;
 		if (!cellViewModel.IsSolved) {
 			PathFinder pathFinder = new DepthFirstSearch();
-			(var board, int zeroX, int zeroY) = pathFinder.Solve(cellViewModel.Board, cellViewModel.ZeroX, cellViewModel.ZeroY, direction);
-			cellViewModel.Board = board;
-			cellViewModel.ZeroX = zeroX;
-			cellViewModel.ZeroY = zeroY;
-			cellViewModel.IsSolved = CellModel.CalculateCombination(board) == CellModel.SolvedCombination;
+			pathFinder.Solve(cellViewModel);
 		}
 	}
 	#endregion
