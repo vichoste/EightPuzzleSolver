@@ -37,7 +37,7 @@ public class State {
 	/// <param name="cellModel">Cell combination</param>
 	/// <param name="zeroX">Row coordinate of the zero cell</param>
 	/// <param name="zeroY">Column coordinate of the zero cell</param>
-	public State(List<CellModel> cellModel, int zeroX, int zeroY) {
+	public State(List<CellModel>? cellModel, int zeroX, int zeroY) {
 		this.Board = cellModel;
 		this.ZeroX = zeroX;
 		this.ZeroY = zeroY;

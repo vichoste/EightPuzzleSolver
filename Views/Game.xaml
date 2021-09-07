@@ -1,13 +1,13 @@
 ﻿<!-- Palletes: https://colorhunt.co/palette/0820322c394b334756ff4c29 https://colorhunt.co/palette/00363805505253b8bbf3f2c9 -->
 <Window x:Name="GameWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" x:Class="EightPuzzleSolver.Game" xmlns:ViewModels="clr-namespace:EightPuzzleSolver.ViewModels" mc:Ignorable="d" Title="8-Puzzle Solver" Height="512" Width="512" WindowStyle="SingleBorderWindow" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" SizeToContent="Manual" Background="#082032" KeyDown="GameWindow_KeyDown">
 	<Window.DataContext>
-		<ViewModels:CellViewModel x:Name="Cell"/>
+		<ViewModels:CellViewModel/>
 	</Window.DataContext>
 	<DockPanel x:Name="MainPanel" LastChildFill="True">
 		<Menu x:Name="GameMenu" DockPanel.Dock="Top" Panel.ZIndex="2">
 			<MenuItem x:Name="SolveGame"  Header="Solve" ToolTip="Using this is technically cheating" TabIndex="2">
-				<MenuItem x:Name="SolveWithBFS" Header="BFS" ToolTip="Breadth First Search" TabIndex="3" Click="SolveWithBFS_Click"/>
-				<MenuItem x:Name="SolveWithDFS" Header="DFS" ToolTip="Depth First Search" TabIndex="4" Click="SolveWithDFS_Click"/>
+				<MenuItem x:Name="BFS" Header="BFS" ToolTip="Breadth First Search" TabIndex="3" Click="SolveWithBFS_Click"/>
+				<MenuItem x:Name="DFS" Header="DFS" ToolTip="Depth First Search" TabIndex="4" Click="SolveWithDFS_Click"/>
 			</MenuItem>
 		</Menu>
 		<StatusBar x:Name="GameStatus" DockPanel.Dock="Bottom" Panel.ZIndex="2">

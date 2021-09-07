@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using EightPuzzleSolver.Models;
 using EightPuzzleSolver.ViewModels;
@@ -23,7 +24,7 @@ internal abstract class PathFinder {
 	/// Solves the board
 	/// </summary>
 	/// <param name="cellViewModel">Cell view model</param>
-	public abstract void Solve(CellViewModel cellViewModel);
+	public abstract Task Solve(CellViewModel cellViewModel);
 	/// <summary>
 	/// Generate as much movements as possible
 	/// </summary>

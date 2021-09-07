@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using EightPuzzleSolver.Models;
 using EightPuzzleSolver.ViewModels;
@@ -16,13 +17,16 @@ internal class BreadthFirstSearch : PathFinder {
 	/// Solves the board with BFS
 	/// </summary>
 	/// <param name="cellViewModel">Cell view model</param>
-	public override void Solve(CellViewModel cellViewModel) {
+	public async override Task Solve(CellViewModel cellViewModel) {
 		Queue<State>? queue = this.pending as Queue<State>;
 		State root = new(cellViewModel.Board, cellViewModel.ZeroX, cellViewModel.ZeroY);
 		queue.Enqueue(root);
 		this.visited.Add(root);
 		while (queue.Count > 0) {
 			var current = queue.Dequeue();
+			if (current.Board is List<CellModel> list) {
+				_ = await Task.Run(() => cellViewModel.Board = current.Board);
+			}
 			var children = MakePossibleMovements(current);
 			for (int i = children.Count - 1; i >= 0; i--) {
 				var currentChild = children[i];

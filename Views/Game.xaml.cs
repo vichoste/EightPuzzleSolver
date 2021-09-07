@@ -21,6 +21,7 @@ public partial class Game : Window {
 	/// Moves the empty cell once the user presses an arrow key
 	/// </summary>
 	private void GameWindow_KeyDown(object sender, KeyEventArgs e) {
+		this.DFS.IsEnabled = this.BFS.IsEnabled = false;
 		var direction = Direction.Up;
 		switch (e.Key) {
 			case Key.Down:
@@ -41,28 +42,31 @@ public partial class Game : Window {
 			cellViewModel.ZeroY = zeroY;
 			cellViewModel.IsSolved = CellModel.CalculateCombination(board) == CellModel.SolvedCombination;
 		}
-		this.DataContext = null;
-		this.DataContext = this.Cell;
+		this.DFS.IsEnabled = this.BFS.IsEnabled = true;
 	}
 	/// <summary>
 	/// Trigger BFS (This will take forever)
 	/// </summary>
-	private void SolveWithBFS_Click(object sender, RoutedEventArgs e) {
+	private async void SolveWithBFS_Click(object sender, RoutedEventArgs e) {
+		this.DFS.IsEnabled = this.BFS.IsEnabled = false;
 		CellViewModel? cellViewModel = (CellViewModel) this.DataContext;
 		if (!cellViewModel.IsSolved) {
 			PathFinder pathFinder = new BreadthFirstSearch();
-			pathFinder.Solve(cellViewModel);
+			await pathFinder.Solve(cellViewModel);
 		}
+		this.DFS.IsEnabled = this.BFS.IsEnabled = true;
 	}
 	/// <summary>
 	/// Trigger DFS (This will take forever)
 	/// </summary>
-	private void SolveWithDFS_Click(object sender, RoutedEventArgs e) {
+	private async void SolveWithDFS_Click(object sender, RoutedEventArgs e) {
+		this.DFS.IsEnabled = this.BFS.IsEnabled = false;
 		CellViewModel? cellViewModel = (CellViewModel) this.DataContext;
 		if (!cellViewModel.IsSolved) {
 			PathFinder pathFinder = new DepthFirstSearch();
-			pathFinder.Solve(cellViewModel);
+			await pathFinder.Solve(cellViewModel);
 		}
+		this.DFS.IsEnabled = this.BFS.IsEnabled = true;
 	}
 	#endregion
 }

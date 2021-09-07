@@ -10,6 +10,9 @@ namespace EightPuzzleSolver.ViewModels;
 /// </summary>
 public class CellViewModel : INotifyPropertyChanged {
 	#region Attributes
+	private List<CellModel>? _Board;
+	#endregion
+	#region Properties
 	/// <summary>
 	/// Row coordinate of the zero cell
 	/// </summary>
@@ -25,8 +28,12 @@ public class CellViewModel : INotifyPropertyChanged {
 	/// <summary>
 	/// Gets the board
 	/// </summary>
-	public List<CellModel> Board {
-		get; set;
+	public List<CellModel>? Board {
+		get => this._Board;
+		set {
+			this._Board = value;
+			this.OnPropertyChanged("Board");
+		}
 	}
 	/// <summary>
 	/// Checks if the board is solved
@@ -91,24 +98,6 @@ public class CellViewModel : INotifyPropertyChanged {
 		} while (!this.IsSolvable);
 	}
 	#endregion
-	#region Indexers
-	/// <summary>
-	/// Gets or sets a value inside the cell
-	/// </summary>
-	/// <param name="row">Row index</param>
-	/// <param name="column">Column index</param>
-	/// <returns>Value at the position</returns>
-	public CellModel this[int row, int column] {
-		get {
-			this.OnPropertyChanged("Board");
-			return this.Board[row * 3 + column];
-		}
-		set {
-			this.Board[row * 3 + column] = value;
-			this.OnPropertyChanged("Board");
-		}
-	}
-	#endregion
 	#region Methods
 	/// <summary>
 	/// Randomizes the values within the board
@@ -148,7 +137,7 @@ public class CellViewModel : INotifyPropertyChanged {
 	/// <param name="zeroX">Row zero cell position</param>
 	/// <param name="zeroY">Row column cell position</param>
 	/// <returns>Tuple of new empty cell coordinates and the board with the new positions because of the movement operation. If the movement is invalid, return unchanged</returns>
-	public static (List<CellModel>?, int, int) MoveZeroCell(List<CellModel> board, int zeroX, int zeroY, Direction direction) {
+	public static (List<CellModel>?, int, int) MoveZeroCell(List<CellModel>? board, int zeroX, int zeroY, Direction direction) {
 		if (direction == Direction.Up && zeroX - 1 < 0 || direction == Direction.Down && zeroX + 1 > 2 || direction == Direction.Left && zeroY - 1 < 0 || direction == Direction.Right && zeroY + 1 > 2) {
 			return (null, 0, 0);
 		}
