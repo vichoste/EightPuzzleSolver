@@ -17,8 +17,8 @@ internal class DepthFirstSearch : PathFinder {
 	/// Solves the board with DFS
 	/// </summary>
 	/// <param name="cellViewModel">Cell view model</param>
-	public async override Task Solve(CellViewModel cellViewModel) {
-		Stack<State>? stack = this.pending as Stack<State>;
+	public override async Task Solve(CellViewModel cellViewModel) {
+		var stack = this.pending as Stack<State>;
 		State root = new(cellViewModel.Board, cellViewModel.ZeroX, cellViewModel.ZeroY);
 		stack.Push(root);
 		this.visited.Add(root);
@@ -31,7 +31,7 @@ internal class DepthFirstSearch : PathFinder {
 				break;
 			}
 			var children = MakePossibleMovements(current);
-			for (int i = children.Count - 1; i >= 0; i--) {
+			for (var i = children.Count - 1; i >= 0; i--) {
 				var currentChild = children[i];
 				if (this.visited.Find(v => v.Combination == currentChild.Combination) is null) {
 					stack.Push(currentChild);

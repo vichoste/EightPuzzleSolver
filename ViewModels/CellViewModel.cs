@@ -51,9 +51,9 @@ public class CellViewModel : INotifyPropertyChanged {
 	/// </summary>
 	public bool IsSolvable {
 		get {
-			int result = 0;
-			for (int i = 0; i < 3 - 1; i++) {
-				for (int j = i + 1; j < 3; j++) {
+			var result = 0;
+			for (var i = 0; i < 3 - 1; i++) {
+				for (var j = i + 1; j < 3; j++) {
 					if (this.Board[j * 3 + i].Value > 0 && this.Board[j * 3 + i].Value > this.Board[i * 3 + j].Value) {
 						result++;
 					}
@@ -110,12 +110,12 @@ public class CellViewModel : INotifyPropertyChanged {
 	/// </summary>
 	private void Shuffle() {
 		Random random = new();
-		for (int i = 0; i < 8; i++) {
-			int j = random.Next(i, 9);
-			int rowI = i / 3;
-			int columnI = i % 3;
-			int rowJ = j / 3;
-			int columnJ = j % 3;
+		for (var i = 0; i < 8; i++) {
+			var j = random.Next(i, 9);
+			var rowI = i / 3;
+			var columnI = i % 3;
+			var rowJ = j / 3;
+			var columnJ = j % 3;
 			Swap(this.Board[rowI * 3 + columnI], this.Board[rowJ * 3 + columnJ]);
 			this.ZeroX = this.Board[rowI * 3 + columnI].Value == 0 ? rowI : this.Board[rowJ * 3 + columnJ].Value == 0 ? rowJ : this.ZeroX;
 			this.ZeroY = this.Board[rowI * 3 + columnI].Value == 0 ? columnI : this.Board[rowJ * 3 + columnJ].Value == 0 ? columnJ : this.ZeroY;
@@ -130,7 +130,7 @@ public class CellViewModel : INotifyPropertyChanged {
 	/// <param name="firstCell">First cell</param>
 	/// <param name="secondCell">Second cells</param>
 	public static void Swap(CellModel firstCell, CellModel secondCell) {
-		int temp = firstCell.Value;
+		var temp = firstCell.Value;
 		firstCell.Value = secondCell.Value;
 		secondCell.Value = temp;
 	}

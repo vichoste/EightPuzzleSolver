@@ -34,25 +34,25 @@ internal abstract class PathFinder {
 		List<State> states = new();
 		if (state.Board is not null) {
 			if (state.ZeroX > 0) { // Check up
-				(var board, int zeroX, int zeroY) = CellViewModel.MoveZeroCell(state.Board, state.ZeroX, state.ZeroY, Direction.Up);
+				(var board, var zeroX, var zeroY) = CellViewModel.MoveZeroCell(state.Board, state.ZeroX, state.ZeroY, Direction.Up);
 				if (board is not null) {
 					states.Add(new State(board, zeroX, zeroY));
 				}
 			}
 			if (state.ZeroX < 2) { // Check down
-				(var board, int zeroX, int zeroY) = CellViewModel.MoveZeroCell(state.Board, state.ZeroX, state.ZeroY, Direction.Down);
+				(var board, var zeroX, var zeroY) = CellViewModel.MoveZeroCell(state.Board, state.ZeroX, state.ZeroY, Direction.Down);
 				if (board is not null) {
 					states.Add(new State(board, zeroX, zeroY));
 				}
 			}
 			if (state.ZeroY > 0) { // Check left
-				(var board, int zeroX, int zeroY) = CellViewModel.MoveZeroCell(state.Board, state.ZeroX, state.ZeroY, Direction.Left);
+				(var board, var zeroX, var zeroY) = CellViewModel.MoveZeroCell(state.Board, state.ZeroX, state.ZeroY, Direction.Left);
 				if (board is not null) {
 					states.Add(new State(board, zeroX, zeroY));
 				}
 			}
 			if (state.ZeroY < 2) { // Check right
-				(var board, int zeroX, int zeroY) = CellViewModel.MoveZeroCell(state.Board, state.ZeroX, state.ZeroY, Direction.Right);
+				(var board, var zeroX, var zeroY) = CellViewModel.MoveZeroCell(state.Board, state.ZeroX, state.ZeroY, Direction.Right);
 				if (board is not null) {
 					states.Add(new State(board, zeroX, zeroY));
 				}

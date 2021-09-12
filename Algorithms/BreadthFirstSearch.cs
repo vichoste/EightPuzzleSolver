@@ -17,8 +17,8 @@ internal class BreadthFirstSearch : PathFinder {
 	/// Solves the board with BFS
 	/// </summary>
 	/// <param name="cellViewModel">Cell view model</param>
-	public async override Task Solve(CellViewModel cellViewModel) {
-		Queue<State>? queue = this.pending as Queue<State>;
+	public override async Task Solve(CellViewModel cellViewModel) {
+		var queue = this.pending as Queue<State>;
 		State root = new(cellViewModel.Board, cellViewModel.ZeroX, cellViewModel.ZeroY);
 		queue.Enqueue(root);
 		this.visited.Add(root);
@@ -31,7 +31,7 @@ internal class BreadthFirstSearch : PathFinder {
 				break;
 			}
 			var children = MakePossibleMovements(current);
-			for (int i = children.Count - 1; i >= 0; i--) {
+			for (var i = children.Count - 1; i >= 0; i--) {
 				var currentChild = children[i];
 				if (this.visited.Find(v => v.Combination == currentChild.Combination) is null) {
 					queue.Enqueue(currentChild);

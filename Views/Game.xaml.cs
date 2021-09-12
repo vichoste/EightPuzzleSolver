@@ -25,7 +25,7 @@ public partial class Game : Window {
 	/// </summary>
 	private void GameWindow_KeyDown(object sender, KeyEventArgs e) {
 		if (!this._IsBeingSolved) {
-			CellViewModel? cellViewModel = (CellViewModel) this.DataContext;
+			var cellViewModel = (CellViewModel) this.DataContext;
 			if (!cellViewModel.IsSolved) {
 				this.DFS.IsEnabled = this.BFS.IsEnabled = false;
 				var direction = Direction.Up;
@@ -40,7 +40,7 @@ public partial class Game : Window {
 						direction = Direction.Right;
 						break;
 				}
-				(var board, int zeroX, int zeroY) = CellViewModel.MoveZeroCell(cellViewModel.Board, cellViewModel.ZeroX, cellViewModel.ZeroY, direction);
+				(var board, var zeroX, var zeroY) = CellViewModel.MoveZeroCell(cellViewModel.Board, cellViewModel.ZeroX, cellViewModel.ZeroY, direction);
 				if (board is not null) {
 					cellViewModel.Board = board;
 					cellViewModel.ZeroX = zeroX;
@@ -57,7 +57,7 @@ public partial class Game : Window {
 	private async void SolveWithBFS_Click(object sender, RoutedEventArgs e) {
 		this._IsBeingSolved = true;
 		this.DFS.IsEnabled = this.BFS.IsEnabled = false;
-		CellViewModel? cellViewModel = (CellViewModel) this.DataContext;
+		var cellViewModel = (CellViewModel) this.DataContext;
 		if (!cellViewModel.IsSolved) {
 			PathFinder pathFinder = new BreadthFirstSearch();
 			await pathFinder.Solve(cellViewModel);
@@ -71,7 +71,7 @@ public partial class Game : Window {
 	private async void SolveWithDFS_Click(object sender, RoutedEventArgs e) {
 		this._IsBeingSolved = false;
 		this.DFS.IsEnabled = this.BFS.IsEnabled = false;
-		CellViewModel? cellViewModel = (CellViewModel) this.DataContext;
+		var cellViewModel = (CellViewModel) this.DataContext;
 		if (!cellViewModel.IsSolved) {
 			PathFinder pathFinder = new DepthFirstSearch();
 			await pathFinder.Solve(cellViewModel);
